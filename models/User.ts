@@ -1,10 +1,12 @@
 import mongoose, { Schema } from 'mongoose'
 import crypto from 'crypto'
 
-interface User {
-  email: String,
-  password: String,
-  hash: String,
+declare global {
+  interface User {
+    email: String,
+    password: String,
+    hash: String,
+  }
 }
 
 const UserSchema = new Schema({
@@ -27,4 +29,4 @@ const UserSchema = new Schema({
   },
 })
 
-export default mongoose.models.User || mongoose.model<User>('User', UserSchema)
+export default mongoose.models.User || mongoose.model('User', UserSchema)

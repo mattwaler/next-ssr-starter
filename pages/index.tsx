@@ -20,7 +20,7 @@ export const getServerSideProps = withSession(async (context: Context) => {
     return { props: { user: null } }
   }
   await connect()
-  const user = await User.findById(session.id)
+  const user: User = await User.findById(session.id)
   const data = JSON.parse(JSON.stringify(user))
   return { props: { user: data } }
 })
