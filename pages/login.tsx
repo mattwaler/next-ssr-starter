@@ -3,7 +3,6 @@ import { useRef } from 'react'
 import { useRouter } from 'next/router'
 import Layout from 'components/Layout'
 import withSession from 'helpers/session'
-import redirect from 'helpers/redirect'
 
 export default function Login() {
   const router = useRouter()
@@ -46,8 +45,14 @@ export default function Login() {
 }
 
 export const getServerSideProps = withSession(async (context: Context) => {
-  if (context.req.session.get('user') !== undefined) {
-    return redirect('/')
+  const session = context.req.session.get('user')
+  if (session) {
+    return {
+      redirect: {
+        location: '/',
+        permanent: false,
+      }
+    }
   }
   return { props: {} }
 })

@@ -1,9 +1,9 @@
 import User from 'models/User'
 import withSession from 'helpers/session'
 import Layout from 'components/Layout'
-import redirect from 'helpers/redirect'
+import UpdateEmail from 'components/UpdateEmail'
 
-export default function Account() {
+export default function Account(props) {
   return (
     <Layout isLoggedIn={true}>
       <div className="container py-8">
@@ -11,6 +11,7 @@ export default function Account() {
         <p>
           Welcome to the account page!
         </p>
+        <UpdateEmail email={props.user.email} />
       </div>
     </Layout>
   )
@@ -18,10 +19,15 @@ export default function Account() {
 
 export const getServerSideProps = withSession(async function (context: Context) {
   const session = context.req.session.get('user')
-
-  if (session === undefined) {
-    return redirect('/')
+  if (!session) {
+    return {
+      redirect: {
+        destination: '/',
+        permanent: false
+      },
+    }
   }
+
   const user = await User.findById(session.id)
   const data = JSON.parse(JSON.stringify(user))
   return {
