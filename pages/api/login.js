@@ -3,10 +3,13 @@ import connect from 'helpers/db'
 import User from 'models/User'
 import withSession from 'helpers/session'
 
-export default withSession(async (req: ApiReq, res: ApiRes) => {
+export default withSession(async (req, res) => {
 
   // LOGIN
   if (req.method == 'POST') {
+    if (!req.body.email || !req.body.password) {
+      return res.status(200).json({ success: false, message: 'Please provide an email and password.' })
+    }
     const { email, password } = await req.body
     try {
       await connect()

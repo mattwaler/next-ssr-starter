@@ -1,27 +1,31 @@
 import axios from 'axios'
-import { useRef } from 'react'
+import React, { useRef } from 'react'
 import { useRouter } from 'next/router'
-import Layout from 'components/Layout'
+import Page from 'components/Page'
 import withSession from 'helpers/session'
+import { toast } from 'react-hot-toast'
 
 export default function Login() {
   const router = useRouter()
   const emailInput = useRef(null)
   const passwordInput = useRef(null)
 
-  async function login() {
+  async function login(event) {
+    event.preventDefault()
     const { data } = await axios.post('/api/login', {
       email: emailInput.current.value,
       password: passwordInput.current.value,
     })
     if (data.success) {
       router.push('/')
+    } else {
+      toast.error(data.message)
     }
   }
 
   return (
-    <Layout>
-      <div className="container py-8">
+    <Page>
+      <form className="container py-8">
         <h1 className="font-bold text-3xl">Log In</h1>
         <label className="block">
           <p>Email:</p>
@@ -39,20 +43,15 @@ export default function Login() {
             </button>
           </div>
         </label>
-      </div>
-    </Layout>
+      </form>
+    </Page>
   )
 }
 
-export const getServerSideProps = withSession(async (context: Context) => {
+export const getServerSideProps = withSession(async (context) => {
   const session = context.req.session.get('user')
   if (session) {
-    return {
-      redirect: {
-        location: '/',
-        permanent: false,
-      }
-    }
+    return { redirect: { location: '/', permanent: false, } }
   }
   return { props: {} }
 })

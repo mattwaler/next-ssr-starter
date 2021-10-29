@@ -4,7 +4,7 @@ import User from 'models/User'
 import withSession from 'helpers/session'
 import { isEmail } from 'validator'
 
-export default withSession(async (req: ApiReq, res: ApiRes) => {
+export default withSession(async (req, res) => {
 
   // CREATE
   if (req.method == 'POST') {

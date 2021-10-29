@@ -1,33 +1,28 @@
 import User from 'models/User'
 import withSession from 'helpers/session'
-import Layout from 'components/Layout'
-import UpdateEmail from 'components/UpdateEmail'
+import connect from 'helpers/db'
+import Page from 'components/Page'
 
 export default function Account(props) {
   return (
-    <Layout isLoggedIn={true}>
+    <Page context={props.user}>
       <div className="container py-8">
         <h1 className="font-bold text-3xl">Account</h1>
         <p>
           Welcome to the account page!
         </p>
-        <UpdateEmail email={props.user.email} />
       </div>
-    </Layout>
+    </Page>
   )
 }
 
-export const getServerSideProps = withSession(async function (context: Context) {
+export const getServerSideProps = withSession(async function (context) {
   const session = context.req.session.get('user')
   if (!session) {
-    return {
-      redirect: {
-        destination: '/',
-        permanent: false
-      },
+    return { redirect: { destination: '/', permanent: false },
     }
   }
-
+  await connect()
   const user = await User.findById(session.id)
   const data = JSON.parse(JSON.stringify(user))
   return {

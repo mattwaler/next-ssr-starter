@@ -1,14 +1,16 @@
 import axios from 'axios'
-import { useRef } from 'react'
+import React, { useRef } from 'react'
 import { useRouter } from 'next/router'
-import Layout from 'components/Layout'
+import Page from 'components/Page'
 import withSession from 'helpers/session'
 
 export default function Create() {
   const router = useRouter()
   const emailInput = useRef(null)
   const passwordInput = useRef(null)
-  async function create() {
+
+  async function create(event) {
+    event.preventDefault()
     const { data } = await axios.post('/api/user', {
       email: emailInput.current.value,
       password: passwordInput.current.value,
@@ -17,9 +19,10 @@ export default function Create() {
       router.push('/login')
     }
   }
+
   return (
-    <Layout>
-      <div className="container py-8">
+    <Page>
+      <form className="container py-8">
         <h1 className="font-bold text-3xl">Create an Account</h1>
         <label className="block">
           <p>Email:</p>
@@ -37,19 +40,15 @@ export default function Create() {
             </button>
           </div>
         </label>
-      </div>
-    </Layout>
+      </form>
+    </Page>
   )
 }
 
-export const getServerSideProps = withSession(async (context: Context) => {
+export const getServerSideProps = withSession(async (context) => {
   const session = context.req.session.get('user')
   if (session) {
-    return {
-      redirect: {
-        destination: '/',
-        permanent: false
-      },
+    return { redirect: { destination: '/', permanent: false },
     }
   }
   return { props: {} }

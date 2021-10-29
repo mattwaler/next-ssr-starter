@@ -1,6 +1,6 @@
 import mongoose from 'mongoose'
 
-export default async (): Promise<void> => {
+export default async () => {
   // Bail if already connected
   if (mongoose.connections[0].readyState) return
 
