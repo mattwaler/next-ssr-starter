@@ -7,11 +7,6 @@ export default function Nav() {
   const router = useRouter()
   const { user } = usePageContext()
 
-  const links = [
-    { name: 'Create Account', url: '/create-account' },
-    { name: 'Login', url: '/login' },
-  ]
-
   async function logout() {
     const { data } = await axios.delete('/api/auth')
     data.success && router.push('/')
@@ -23,13 +18,11 @@ export default function Nav() {
         <a className="underline">Home</a>
       </Link>
       <nav className="space-x-4">
-        {/* Logged In */}
         {user && (
           <button className="underline" onClick={logout}>
             Logout
           </button>
         )}
-        {/* Logged Out */}
         {!user && (
           <Link href="/auth">
             <a className="underline">Login / Sign Up</a>

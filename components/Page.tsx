@@ -7,8 +7,6 @@ export const usePageContext = () => useContext(PageContext)
 
 export default function Page(props) {
   const devMode =  process.env.NODE_ENV === 'development'
-  devMode && console.log('Current Page Context:', props.context)
-
   return (
     <PageContext.Provider value={props.context}>
       <div className={`flex flex-col ${devMode && 'debug-screens'}`}>
