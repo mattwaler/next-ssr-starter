@@ -1,10 +1,9 @@
 import bcrypt from 'bcrypt'
 import connect from 'helpers/db'
 import User from 'models/User'
-import withSession from 'helpers/session'
+import { withSessionRoute } from 'helpers/session'
 
-export default withSession(async (req, res) => {
-
+async function route(req, res) {
   // LOGIN
   if (req.method == 'POST') {
     if (!req.body.email || !req.body.password) {
@@ -16,7 +15,7 @@ export default withSession(async (req, res) => {
       const user = await User.findOne({ email })
       const match = await bcrypt.compare(password, user.password)
       if (match) {
-        req.session.set('user', { id: user._id })
+        req.session.user = { id: user._id }
         await req.session.save()
         return res.status(200).json({
           success: true,
@@ -35,8 +34,18 @@ export default withSession(async (req, res) => {
       })
     }
   }
-
+  // LOGOUT
+  if (req.method === 'DELETE') {
+    try {
+      res.setHeader("cache-control", "no-store, max-age=0")
+      await req.session.destroy()
+      return res.status(200).json({ success: true })
+    } catch (error) {
+      return res.status(200).json({ success: false })
+    }
+  }
   // ANY OTHER METHOD
   return res.status(200).json({ success: false })
+}
 
-})
+export default withSessionRoute(route)

@@ -1,11 +1,10 @@
 import bcrypt from 'bcrypt'
 import connect from 'helpers/db'
 import User from 'models/User'
-import withSession from 'helpers/session'
 import { isEmail } from 'validator'
+import { withSessionRoute } from 'helpers/session'
 
-export default withSession(async (req, res) => {
-
+async function route(req, res) {
   // CREATE
   if (req.method == 'POST') {
     try {
@@ -18,12 +17,11 @@ export default withSession(async (req, res) => {
       return res.status(200).json({ success: false })
     }
   }
-
   // UPDATE
   if (req.method === 'PATCH') {
     try {
-      const session = req.session.get('user')
-      if (!session) return
+      const user = req.user.user
+      if (!user) return
       if (req.body.email) {
         const validEmail = isEmail(req.body.email)
         if (!validEmail) {
@@ -31,15 +29,15 @@ export default withSession(async (req, res) => {
         }
       }
       await connect()
-      await User.findByIdAndUpdate(session.id, req.body, { new: true })
+      await User.findByIdAndUpdate(user.id, req.body, { new: true })
       return res.status(200).json({ success: true, message: 'User updated successfully.' })
     } catch (error) {
       console.error(error)
       return res.status(200).json({ success: false, message: 'Something went wrong.' })
     }
   }
-
   // ANY OTHER METHOD
   return res.status(200).json({ success: false, message: 'Invalid method.' })
+}
 
-})
+export default withSessionRoute(route)

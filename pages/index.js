@@ -1,34 +1,36 @@
 import connect from 'helpers/db'
 import Page from 'components/Page'
 import User from 'models/User'
-import withSession from 'helpers/session'
+import { withSessionSsr } from 'helpers/session'
 
 export default function Home(props) {
   return (
     <Page context={props}>
       <div className="container py-8">
-        <h1 className="font-bold text-3xl">Home!!!</h1>
-        Hello {props?.user ? 'logged in user' : 'guest'}!
+        <h1 className="font-bold text-3xl">Home</h1>
+        Hello {props.user ? 'logged in user' : 'guest'}!
       </div>
     </Page>
   )
 }
 
-export const getServerSideProps = withSession(async (context) => {
-  const session = context.req.session.get('user')
-  if (session === undefined) {
+async function getServerProps(context) {
+  const { user } = context.req.session
+  if (!user) {
     return {
       props: {
-        data: null
+        user: null
       }
     }
   }
   await connect()
-  const user = await User.findById(session.id)
-  const data = JSON.parse(JSON.stringify(user))
+  const userData = await User.findById(user.id)
+  const userObj = JSON.parse(JSON.stringify(userData))
   return {
     props: {
-      data
+      user: userObj
     }
   }
-})
+}
+
+export const getServerSideProps = withSessionSsr(getServerProps)
