@@ -3,24 +3,24 @@ import FormLogin from 'components/FormLogin'
 import Page from 'components/Page'
 import { withSessionSsr } from 'helpers/session'
 
-async function getServerProps(context) {
-  const { user } = context.req.session
-  if (user) {
+export const getServerSideProps = withSessionSsr(
+  async function getServerProps(context) {
+    const { user } = context.req.session
+    if (user) {
+      return {
+        redirect: {
+          destination: '/',
+          permanent: false,
+        }
+      }
+    }
     return {
-      redirect: {
-        destination: '/',
-        permanent: false,
+      props: {
+        user: null,
       }
     }
   }
-  return {
-    props: {
-      user: null,
-    }
-  }
-}
-
-export const getServerSideProps = withSessionSsr(getServerProps)
+)
 
 export default function Auth(props) {
   return (

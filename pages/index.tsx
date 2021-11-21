@@ -3,28 +3,28 @@ import Page from 'components/Page'
 import User from 'models/User'
 import { withSessionSsr } from 'helpers/session'
 
-async function getServerProps(context) {
-  const { user } = context.req.session
-  if (!user) {
+export const getServerSideProps = withSessionSsr(
+  async function getServerProps(context) {
+    const { user } = context.req.session
+    if (!user) {
+      return {
+        props: {
+          user: null
+        }
+      }
+    }
+    await connect()
+    const userData = await User.findById(user.id)
+    const userObj = JSON.parse(JSON.stringify(userData))
     return {
       props: {
-        user: null
+        user: {
+          email: userObj.email
+        }
       }
     }
   }
-  await connect()
-  const userData = await User.findById(user.id)
-  const userObj = JSON.parse(JSON.stringify(userData))
-  return {
-    props: {
-      user: {
-        email: userObj.email
-      }
-    }
-  }
-}
-
-export const getServerSideProps = withSessionSsr(getServerProps)
+)
 
 export default function Home(props) {
   const email = props.user?.email

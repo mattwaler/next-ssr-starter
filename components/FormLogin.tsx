@@ -22,7 +22,7 @@ export default function Login() {
   }
 
   return (
-    <form>
+    <form onSubmit={event => login(event)}>
       <h2 className="font-bold text-2xl">Log In</h2>
       <label className="block">
         <p>Email:</p>
@@ -34,7 +34,7 @@ export default function Login() {
         <div className="mt-4">
           <button
             className="px-4 py-2 bg-gray-900 text-white font-bold"
-            onClick={login}
+            type="submit"
           >
             Login
           </button>

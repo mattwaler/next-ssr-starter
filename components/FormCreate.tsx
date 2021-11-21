@@ -19,7 +19,7 @@ export default function Create() {
   }
 
   return (
-    <form>
+    <form onSubmit={event => create(event)}>
       <h2 className="font-bold text-2xl">Create an Account</h2>
       <label className="block">
         <p>Email:</p>
@@ -31,7 +31,7 @@ export default function Create() {
         <div className="mt-4">
           <button
             className="px-4 py-2 bg-gray-900 text-white font-bold"
-            onClick={create}
+            type="submit"
           >
             Create Account
           </button>
