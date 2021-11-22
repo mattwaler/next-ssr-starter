@@ -21,7 +21,7 @@ export default withSessionRoute(
     // UPDATE
     if (req.method === 'PATCH') {
       try {
-        const user = req.user.user
+        const user = req.session.user
         if (!user) return
         if (req.body.email) {
           const validEmail = isEmail(req.body.email)
