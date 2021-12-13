@@ -1,11 +1,13 @@
 // tailwind.config.js
 module.exports = {
-  mode: 'jit',
-  purge: [
+  content: [
     './pages/**/*.{js,ts,jsx,tsx}',
     './components/**/*.{js,ts,jsx,tsx}',
   ],
-  darkMode: false,
+  plugins: [
+    require('@tailwindcss/forms'),
+    require('tailwindcss-debug-screens'),
+  ],
   theme: {
     container: {
       center: true,
@@ -16,11 +18,4 @@ module.exports = {
     },
     extend: {},
   },
-  variants: {
-    extend: {},
-  },
-  plugins: [
-    require('@tailwindcss/forms'),
-    require('tailwindcss-debug-screens'),
-  ],
 }

@@ -6,12 +6,7 @@ export default async () => {
 
   // Connect if not connected
   try {
-    await mongoose.connect(process.env.DATABASE, {
-      useNewUrlParser: true,
-      useFindAndModify: false,
-      useCreateIndex: true,
-      useUnifiedTopology: true,
-    })
+    await mongoose.connect(process.env.DATABASE)
     console.log('Connected to database.')
   } catch (error) {
     console.log('DB error', error)
