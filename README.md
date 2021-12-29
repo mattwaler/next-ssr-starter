@@ -1,6 +1,6 @@
 # Next SSR Starter
 
-A starter project for using Next.js utilizing session-based SSR user modeling.
+A starter project for using Next.js utilizing TailwindCSS and session-based SSR user modeling.
 
 ## ⭐️ Requirements
 
