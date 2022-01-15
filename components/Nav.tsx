@@ -1,7 +1,7 @@
+import axios from 'axios'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { usePageContext } from 'components/Page'
-import axios from 'axios'
 
 export default function Nav() {
   const router = useRouter()
@@ -25,7 +25,7 @@ export default function Nav() {
         )}
         {!user && (
           <Link href="/auth">
-            <a className="underline">Login / Sign Up</a>
+            <a className="underline">Login / Create Account</a>
           </Link>
         )}
       </nav>

@@ -22,7 +22,7 @@ export default function Login() {
   }
 
   return (
-    <form onSubmit={event => login(event)}>
+    <form onSubmit={(event) => login(event)}>
       <h2 className="font-bold text-2xl">Log In</h2>
       <label className="block">
         <p>Email:</p>

@@ -15,10 +15,16 @@ const UserSchema = new Schema({
   hash: {
     type: String,
     unique: true,
-    default: function() {
+    default: function () {
       return crypto.randomBytes(20).toString('hex')
     },
   },
 })
+
+export interface UserType {
+  email: string
+  password?: string
+  hash?: string
+}
 
 export default mongoose.models.User || mongoose.model('User', UserSchema)

@@ -19,7 +19,7 @@ export default function Create() {
   }
 
   return (
-    <form onSubmit={event => create(event)}>
+    <form onSubmit={(event) => create(event)}>
       <h2 className="font-bold text-2xl">Create an Account</h2>
       <label className="block">
         <p>Email:</p>

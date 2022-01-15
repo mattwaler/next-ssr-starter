@@ -25,10 +25,10 @@ export function withSessionSsr<
   return withIronSessionSsr(handler, sessionOptions)
 }
 
-declare module "iron-session" {
+declare module 'iron-session' {
   interface IronSessionData {
     user?: {
-      id: string,
-    };
+      id: string
+    }
   }
 }
