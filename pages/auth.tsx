@@ -3,6 +3,7 @@ import FormCreate from 'components/FormCreate'
 import FormLogin from 'components/FormLogin'
 import Page from 'components/Page'
 import { props, withSessionSsr } from 'helpers/all'
+import { UserType } from 'models/User'
 
 export const getServerSideProps = withSessionSsr(async (context) => {
   const { user } = context.req.session
@@ -10,7 +11,11 @@ export const getServerSideProps = withSessionSsr(async (context) => {
   return props({ user: null })
 })
 
-export default function Auth(props) {
+interface Props {
+  user: UserType | null
+}
+
+export default function Auth(props: Props) {
   enum States {
     Initial,
     Login,

@@ -1,5 +1,6 @@
 import Page from 'components/Page'
 import { getUser, props, withSessionSsr } from 'helpers/all'
+import { UserType } from 'models/User'
 
 export const getServerSideProps = withSessionSsr(async (context) => {
   const user = await getUser(context)
@@ -7,7 +8,11 @@ export const getServerSideProps = withSessionSsr(async (context) => {
   return props({ user })
 })
 
-export default function Home(props) {
+interface Props {
+  user: UserType | null
+}
+
+export default function Home(props: Props) {
   const email = props.user?.email
   return (
     <Page title="Home" context={props}>
