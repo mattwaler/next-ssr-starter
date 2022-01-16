@@ -1,11 +1,10 @@
 import Nav from 'components/Nav'
 import { Toaster } from 'react-hot-toast'
 import { createContext, useContext } from 'react'
-import type { UserType } from 'models/User'
 import Head from 'next/head'
 
 interface PageContextType {
-  user: UserType
+  user: UserCSR
 }
 
 interface Props {

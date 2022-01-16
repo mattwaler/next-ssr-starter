@@ -1,7 +1,6 @@
 import bcrypt from 'bcrypt'
-import connect from 'helpers/db'
 import User from 'models/User'
-import { withSessionRoute } from 'helpers/session'
+import { connect, withSessionRoute } from 'lib/helpers'
 
 export default withSessionRoute(async function route(req, res) {
   // LOGIN

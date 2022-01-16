@@ -1,6 +1,18 @@
 import mongoose, { Schema } from 'mongoose'
 import crypto from 'crypto'
 
+declare global {
+  interface UserSSR {
+    email: string
+    password?: string
+    hash?: string
+  }
+
+  interface UserCSR {
+    email: string
+  }
+}
+
 const UserSchema = new Schema({
   email: {
     type: String,
@@ -21,10 +33,5 @@ const UserSchema = new Schema({
   },
 })
 
-export interface UserType {
-  email: string
-  password?: string
-  hash?: string
-}
-
-export default mongoose.models.User || mongoose.model('User', UserSchema)
+export default mongoose.models.User ||
+  mongoose.model<UserSSR>('User', UserSchema)
