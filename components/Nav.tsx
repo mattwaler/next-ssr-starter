@@ -19,9 +19,14 @@ export default function Nav() {
       </Link>
       <nav className="space-x-4">
         {user && (
-          <button className="underline" onClick={logout}>
-            Logout
-          </button>
+          <>
+            <Link href="/account">
+              <a href="" className="underline">Account</a>
+            </Link>
+            <button className="underline" onClick={logout}>
+              Logout
+            </button>
+          </>
         )}
         {!user && (
           <Link href="/auth">

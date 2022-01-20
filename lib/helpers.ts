@@ -44,13 +44,11 @@ export function props(obj) {
   }
 }
 
-export function redirect(destination: string, permanent: Boolean) {
+export function redirect(destination: string, permanent = false) {
   return {
-    props: {
-      redirect: {
-        destination,
-        permanent,
-      },
+    redirect: {
+      destination,
+      permanent,
     },
   }
 }

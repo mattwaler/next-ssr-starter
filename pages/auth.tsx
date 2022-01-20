@@ -6,7 +6,7 @@ import { props, redirect, withSessionSsr } from 'lib/helpers'
 
 export const getServerSideProps = withSessionSsr(async (context) => {
   const { user } = context.req.session
-  return user ? redirect('/', false) : props({ user: null })
+  return user ? redirect('/') : props({ user: null })
 })
 
 export default function Auth(props: { user: UserCSR | null }) {
