@@ -8,14 +8,9 @@ export default withSessionRoute(async function route(req, res) {
   if (req.method == 'POST') {
     try {
       await connect()
-      const hashedPassword = await bcrypt.hash(
-        req.body.password,
-        parseInt(process.env.SALT_ROUNDS)
-      )
+      const hashedPassword = await bcrypt.hash(req.body.password, parseInt(process.env.SALT_ROUNDS))
       await User.create({ ...req.body, password: hashedPassword })
-      return res
-        .status(200)
-        .json({ success: true, message: 'User created successfully.' })
+      return res.status(200).json({ success: true, message: 'User created successfully.' })
     } catch (error) {
       console.error(error)
       return res.status(200).json({ success: false })
@@ -30,21 +25,15 @@ export default withSessionRoute(async function route(req, res) {
       if (req.body.email) {
         const validEmail = isEmail(req.body.email)
         if (!validEmail) {
-          return res
-            .status(200)
-            .json({ success: false, message: 'Invalid email.' })
+          return res.status(200).json({ success: false, message: 'Invalid email.' })
         }
       }
       await connect()
       await User.findByIdAndUpdate(user.id, req.body, { new: true })
-      return res
-        .status(200)
-        .json({ success: true, message: 'User updated successfully.' })
+      return res.status(200).json({ success: true, message: 'User updated successfully.' })
     } catch (error) {
       console.error(error)
-      return res
-        .status(200)
-        .json({ success: false, message: 'Something went wrong.' })
+      return res.status(200).json({ success: false, message: 'Something went wrong.' })
     }
   }
 

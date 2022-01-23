@@ -1,11 +1,7 @@
 import mongoose from 'mongoose'
 import User from 'models/User'
 import { withIronSessionApiRoute, withIronSessionSsr } from 'iron-session/next'
-import {
-  GetServerSidePropsContext,
-  GetServerSidePropsResult,
-  NextApiHandler,
-} from 'next'
+import { GetServerSidePropsContext, GetServerSidePropsResult, NextApiHandler } from 'next'
 
 export async function connect() {
   // Bail if already connected
@@ -20,9 +16,7 @@ export async function connect() {
   }
 }
 
-export async function getUser(
-  context: GetServerSidePropsContext
-): Promise<UserCSR> {
+export async function getUser(context: GetServerSidePropsContext): Promise<UserCSR> | null {
   // Bail if no session
   const { user } = context.req.session
   if (!user) return null
@@ -62,9 +56,7 @@ export function withSessionRoute(handler: NextApiHandler) {
   return withIronSessionApiRoute(handler, withSessionOptions)
 }
 
-export function withSessionSsr<
-  P extends { [key: string]: unknown } = { [key: string]: unknown }
->(
+export function withSessionSsr<P extends { [key: string]: unknown } = { [key: string]: unknown }>(
   handler: (
     context: GetServerSidePropsContext
   ) => GetServerSidePropsResult<P> | Promise<GetServerSidePropsResult<P>>

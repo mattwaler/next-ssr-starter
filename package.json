@@ -9,6 +9,7 @@
     "format": "prettier --write ."
   },
   "dependencies": {
+    "@heroicons/react": "^1.0.5",
     "axios": "^0.24.0",
     "bcrypt": "^5.0.1",
     "clsx": "^1.1.1",

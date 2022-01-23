@@ -1,4 +1,5 @@
-import Nav from 'components/Nav'
+import Header from 'components/Header'
+import Footer from 'components/Footer'
 import { Toaster } from 'react-hot-toast'
 import { createContext, useContext } from 'react'
 import Head from 'next/head'
@@ -23,10 +24,15 @@ export default function Page(props: Props) {
       <Head>
         <title>{props.title} | Next SSR Starter</title>
       </Head>
-      <div className={`flex flex-col ${devMode && 'debug-screens'}`}>
+      <div
+        className={`antialiased text-gray-900 min-h-screen flex flex-col ${
+          devMode && 'debug-screens'
+        }`}
+      >
         <Toaster />
-        <Nav />
+        <Header />
         <main className="flex-1">{props.children}</main>
+        <Footer />
       </div>
     </PageContext.Provider>
   )
