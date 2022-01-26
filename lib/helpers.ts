@@ -27,6 +27,7 @@ export async function getUser(context: GetServerSidePropsContext): Promise<UserC
   const obj = JSON.parse(JSON.stringify(userData))
   return {
     email: obj.email,
+    name: obj?.name ?? null,
   }
 }
 

@@ -1,8 +1,10 @@
 import axios from 'axios'
 import React, { useRef } from 'react'
 import { toast } from 'react-hot-toast'
+import { useRouter } from 'next/router'
 
 export default function Create() {
+  const router = useRouter()
   const emailInput = useRef(null)
   const passwordInput = useRef(null)
 
@@ -13,14 +15,13 @@ export default function Create() {
       password: passwordInput.current.value,
     })
     if (data.success) {
-      return toast.success('Account created successfully! Please log in.')
+      return router.push('/login')
     }
     return toast.error('Something went wrong. Try again later.')
   }
 
   return (
-    <form onSubmit={(event) => create(event)}>
-      <h2 className="font-bold text-2xl">Create an Account</h2>
+    <form onSubmit={create}>
       <label className="block">
         <p>Email:</p>
         <input className="w-96 rounded" ref={emailInput} type="text" />

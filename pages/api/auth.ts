@@ -5,14 +5,15 @@ import { connect, withSessionRoute } from 'lib/helpers'
 export default withSessionRoute(async function route(req, res) {
   // LOGIN
   if (req.method == 'POST') {
+    // Bail if incorrect post body
     if (!req.body.email || !req.body.password) {
       return res.status(200).json({
         success: false,
         message: 'Please provide an email and password.',
       })
     }
-    const { email, password } = await req.body
     try {
+      const { email, password } = req.body
       await connect()
       const user = await User.findOne({ email })
       const match = await bcrypt.compare(password, user.password)

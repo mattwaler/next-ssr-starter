@@ -10,6 +10,7 @@ declare global {
 
   interface UserCSR {
     email: string
+    name?: string
   }
 }
 
@@ -19,6 +20,10 @@ const UserSchema = new Schema({
     required: true,
     unique: true,
     maxlength: 64,
+  },
+  name: {
+    type: String,
+    maxlength: 128,
   },
   password: {
     type: String,

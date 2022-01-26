@@ -1,10 +1,10 @@
 import Page from 'components/Page'
-import { getUser, props, redirect, withSessionSsr } from 'lib/helpers'
-import SlowComponent from 'components/SlowComponent'
+import * as h from 'lib/helpers'
+import FormUpdate from 'components/FormUpdate'
 
-export const getServerSideProps = withSessionSsr(async (context) => {
-  const user = await getUser(context)
-  return user ? props({ user }) : redirect('/')
+export const getServerSideProps = h.withSessionSsr(async (context) => {
+  const user = await h.getUser(context)
+  return user ? h.props({ user }) : h.redirect('/')
 })
 
 export default function Account(props: { user: UserCSR | null }) {
@@ -13,7 +13,9 @@ export default function Account(props: { user: UserCSR | null }) {
       <div className="container py-8">
         <h1 className="font-bold text-3xl">Account</h1>
         <p>This page is only accessible to logged-in users.</p>
-        <SlowComponent />
+        <div className="mt-8">
+          <FormUpdate />
+        </div>
       </div>
     </Page>
   )

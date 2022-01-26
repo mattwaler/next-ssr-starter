@@ -32,9 +32,14 @@ export default function Nav() {
             </>
           )}
           {!user && (
-            <Link href="/auth">
-              <a>Login / Create Account</a>
-            </Link>
+            <>
+              <Link href="/login">
+                <a>Login</a>
+              </Link>
+              <Link href="/create">
+                <a>Create Account</a>
+              </Link>
+            </>
           )}
         </nav>
       </div>
