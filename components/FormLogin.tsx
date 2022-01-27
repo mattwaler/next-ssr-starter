@@ -14,11 +14,9 @@ export default function Login() {
       email: emailInput.current.value,
       password: passwordInput.current.value,
     })
-    if (data.success) {
-      router.push('/')
-    } else {
-      toast.error(data.message)
-    }
+    return data.success
+      ? router.push('/')
+      : toast.error(data.message)
   }
 
   return (

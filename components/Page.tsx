@@ -1,8 +1,9 @@
+import clsx from 'clsx'
+import Head from 'next/head'
+import { createContext, useContext } from 'react'
 import Header from 'components/Header'
 import Footer from 'components/Footer'
 import { Toaster } from 'react-hot-toast'
-import { createContext, useContext } from 'react'
-import Head from 'next/head'
 
 interface PageContextType {
   user: UserCSR
@@ -25,9 +26,10 @@ export default function Page(props: Props) {
         <title>{props.title} | Next SSR Starter</title>
       </Head>
       <div
-        className={`antialiased text-gray-900 min-h-screen flex flex-col ${
+        className={clsx(
+          'antialiased text-gray-900 min-h-screen flex flex-col',
           devMode && 'debug-screens'
-        }`}
+        )}
       >
         <Toaster />
         <Header />

@@ -14,11 +14,9 @@ export default function Update() {
       email: emailInput.current.value,
       name: nameInput.current.value,
     })
-    if (data.success) {
-      return toast.success('Details updated successfully.')
-
-    }
-    return toast.error('Something went wrong. Try again later.')
+    return data.success
+      ? toast.success('Details updated successfully.')
+      : toast.error('Something went wrong. Try again later.')
   }
 
   return (

@@ -14,10 +14,9 @@ export default function Create() {
       email: emailInput.current.value,
       password: passwordInput.current.value,
     })
-    if (data.success) {
-      return router.push('/login')
-    }
-    return toast.error('Something went wrong. Try again later.')
+    return data.success
+      ? router.push('/login')
+      : toast.error('Something went wrong. Try again later.')
   }
 
   return (
