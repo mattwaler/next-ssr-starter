@@ -5,14 +5,14 @@ import { toast } from 'react-hot-toast'
 
 export default function Login() {
   const router = useRouter()
-  const emailInput = useRef(null)
-  const passwordInput = useRef(null)
+  const emailInput = useRef<HTMLInputElement>(null)
+  const passwordInput = useRef<HTMLInputElement>(null)
 
-  async function login(event) {
+  async function login(event: React.FormEvent) {
     event.preventDefault()
     const { data } = await axios.post('/api/auth', {
-      email: emailInput.current.value,
-      password: passwordInput.current.value,
+      email: emailInput?.current?.value,
+      password: passwordInput?.current?.value,
     })
     return data.success
       ? router.push('/')

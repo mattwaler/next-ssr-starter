@@ -5,14 +5,14 @@ import { useRouter } from 'next/router'
 
 export default function Create() {
   const router = useRouter()
-  const emailInput = useRef(null)
-  const passwordInput = useRef(null)
+  const emailInput = useRef<HTMLInputElement>(null)
+  const passwordInput = useRef<HTMLInputElement>(null)
 
-  async function create(event) {
+  async function create(event: React.FormEvent) {
     event.preventDefault()
     const { data } = await axios.post('/api/user', {
-      email: emailInput.current.value,
-      password: passwordInput.current.value,
+      email: emailInput?.current?.value,
+      password: passwordInput?.current?.value,
     })
     return data.success
       ? router.push('/login')

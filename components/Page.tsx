@@ -17,7 +17,7 @@ interface Props {
   title: string
 }
 
-const PageContext = createContext<PageContextType | null>(null)
+const PageContext = createContext<PageContextType>({})
 export const usePageContext = () => useContext(PageContext)
 
 export default function Page(props: Props) {

@@ -8,7 +8,7 @@ export default function Nav() {
   const router = useRouter()
   const { user } = usePageContext()
 
-  const isActive = (path)  => path === router.pathname
+  const isActive = (path: string)  => path === router.pathname
 
   const NavLink = ({ text = 'Text', link = '/' }) => (
     <Link href={link}>

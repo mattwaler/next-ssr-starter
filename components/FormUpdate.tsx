@@ -5,14 +5,14 @@ import { usePageContext } from 'components/Page'
 
 export default function Update() {
   const { user } = usePageContext()
-  const emailInput = useRef(null)
-  const nameInput = useRef(null)
+  const emailInput = useRef<HTMLInputElement>(null)
+  const nameInput = useRef<HTMLInputElement>(null)
 
-  async function update(event) {
+  async function update(event: React.FormEvent) {
     event.preventDefault()
     const { data } = await axios.patch('/api/user', {
-      email: emailInput.current.value,
-      name: nameInput.current.value,
+      email: emailInput?.current?.value,
+      name: nameInput?.current?.value,
     })
     return data.success
       ? toast.success('Details updated successfully.')
