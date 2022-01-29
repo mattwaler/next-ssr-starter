@@ -39,11 +39,12 @@ export default withSessionRoute(async function route(req, res) {
   }
 
   // LOGOUT
-  if (req.method === 'DELETE') {
+  if (req.method === 'GET') {
     try {
       res.setHeader('cache-control', 'no-store, max-age=0')
       await req.session.destroy()
-      return res.status(200).json({ success: true })
+      res.status(200).redirect('/')
+      return
     } catch (error) {
       return res.status(200).json({ success: false })
     }

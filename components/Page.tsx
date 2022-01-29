@@ -5,8 +5,10 @@ import Header from 'components/Header'
 import Footer from 'components/Footer'
 import { Toaster } from 'react-hot-toast'
 
-interface PageContextType {
-  user: UserCSR
+declare global {
+  interface PageContextType {
+    user?: UserCSR
+  }
 }
 
 interface Props {

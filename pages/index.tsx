@@ -3,10 +3,10 @@ import * as h from 'lib/helpers'
 
 export const getServerSideProps = h.withSessionSsr(async (context) => {
   const user = await h.getUser(context)
-  return user ? h.props({ user }) : h.props({ user: null })
+  return user ? h.props({ user }) : h.props({})
 })
 
-export default function Home(props: { user: UserCSR | null }) {
+export default function Home(props: PageContextType) {
   const { user } = props
   return (
     <Page title="Home" context={props}>

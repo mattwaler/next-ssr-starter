@@ -9,6 +9,14 @@ module.exports = {
     },
     debugScreens: {
       position: ['bottom', 'right'],
+      style: {
+        backgroundColor: '#facc15',
+        borderRadius: '2px',
+        boxShadow: 'none',
+        color: 'black',
+        fontSize: '14px',
+        padding: '6px',
+      },
     },
     extend: {},
   },
