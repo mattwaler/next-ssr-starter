@@ -1,10 +1,13 @@
 import axios from 'axios'
 import React, { useRef } from 'react'
 import { toast } from 'react-hot-toast'
-import { usePageContext } from 'components/Page'
 
-export default function Update() {
-  const { user } = usePageContext()
+interface Props {
+  user: UserCSR
+}
+
+export default function Update(props: Props) {
+  const { user } = props
   const emailInput = useRef<HTMLInputElement>(null)
   const nameInput = useRef<HTMLInputElement>(null)
 

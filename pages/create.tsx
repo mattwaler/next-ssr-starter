@@ -7,9 +7,13 @@ export const getServerSideProps = h.withSessionSsr(async (context) => {
   return user ? h.redirect('/') : h.props({ user: null })
 })
 
-export default function Auth(props: PageContextType) {
+interface Props {
+  user: UserCSR
+}
+
+export default function Auth(props: Props) {
   return (
-    <Page title="Create" context={props}>
+    <Page title="Create" user={props.user}>
       <div className="container py-8">
         <h1 className="col-span-2 font-bold text-3xl">Create</h1>
         <div className="mt-4">

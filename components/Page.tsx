@@ -1,29 +1,19 @@
 import clsx from 'clsx'
 import Head from 'next/head'
-import { createContext, useContext } from 'react'
 import Header from 'components/Header'
 import Footer from 'components/Footer'
 import { Toaster } from 'react-hot-toast'
 
-declare global {
-  interface PageContextType {
-    user?: UserCSR
-  }
-}
-
 interface Props {
-  context: PageContextType
+  user: UserCSR | null
   children: React.ReactNode
   title: string
 }
 
-const PageContext = createContext<PageContextType>({})
-export const usePageContext = () => useContext(PageContext)
-
 export default function Page(props: Props) {
   const devMode = process.env.NODE_ENV === 'development'
   return (
-    <PageContext.Provider value={props.context}>
+    <>
       <Head>
         <title>{props.title} | Next SSR Starter</title>
       </Head>
@@ -34,10 +24,10 @@ export default function Page(props: Props) {
         )}
       >
         <Toaster />
-        <Header />
+        <Header user={props.user} />
         <main className="flex-1">{props.children}</main>
         <Footer />
       </div>
-    </PageContext.Provider>
+    </>
   )
 }

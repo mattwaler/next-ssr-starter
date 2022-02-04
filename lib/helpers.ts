@@ -31,7 +31,7 @@ export async function getUser(context: GetServerSidePropsContext): Promise<UserC
   }
 }
 
-export function props(obj) {
+export function props(obj: any) {
   return {
     props: {
       ...obj,

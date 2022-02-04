@@ -1,12 +1,15 @@
 import clsx from 'clsx'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { usePageContext } from 'components/Page'
 import { LightningBoltIcon } from '@heroicons/react/solid'
 
-export default function Nav() {
+interface Props {
+  user: UserCSR | null
+}
+
+export default function Nav(props: Props) {
   const router = useRouter()
-  const { user } = usePageContext()
+  const { user } = props
 
   const isActive = (path: string)  => path === router.pathname
 

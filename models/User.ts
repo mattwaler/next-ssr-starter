@@ -1,19 +1,6 @@
 import mongoose, { Schema } from 'mongoose'
 import crypto from 'crypto'
 
-declare global {
-  interface UserSSR {
-    email: string
-    password?: string
-    hash?: string
-  }
-
-  interface UserCSR {
-    email: string
-    name?: string
-  }
-}
-
 const UserSchema = new Schema({
   email: {
     type: String,
