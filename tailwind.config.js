@@ -1,6 +1,6 @@
 // tailwind.config.js
 module.exports = {
-  content: ['./pages/**/*.{js,ts,jsx,tsx}', './components/**/*.{js,ts,jsx,tsx}'],
+  content: ['./src/**/*'],
   plugins: [require('@tailwindcss/forms'), require('tailwindcss-debug-screens')],
   theme: {
     container: {

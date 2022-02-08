@@ -3,19 +3,19 @@ import Head from 'next/head'
 import Header from 'components/Header'
 import Footer from 'components/Footer'
 import { Toaster } from 'react-hot-toast'
+import { createContext, useContext } from 'react'
 
-interface Props {
-  user: UserCSR | null
-  children: React.ReactNode
-  title: string
-}
+const UserContext = createContext(null)
+export const useUser = () => useContext(UserContext)
 
-export default function Page(props: Props) {
+export default function Page(props) {
+  const { title, children, user } = props
   const devMode = process.env.NODE_ENV === 'development'
+
   return (
-    <>
+    <UserContext.Provider value={user}>
       <Head>
-        <title>{props.title} | Next SSR Starter</title>
+        <title>{title} | Next SSR Starter</title>
       </Head>
       <div
         className={clsx(
@@ -24,10 +24,10 @@ export default function Page(props: Props) {
         )}
       >
         <Toaster />
-        <Header user={props.user} />
-        <main className="flex-1">{props.children}</main>
+        <Header />
+        <main className="flex-1">{children}</main>
         <Footer />
       </div>
-    </>
+    </UserContext.Provider>
   )
 }

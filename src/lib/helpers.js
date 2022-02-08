@@ -1,7 +1,6 @@
 import mongoose from 'mongoose'
 import User from 'models/User'
 import { withIronSessionApiRoute, withIronSessionSsr } from 'iron-session/next'
-import { GetServerSidePropsContext, GetServerSidePropsResult, NextApiHandler } from 'next'
 
 export async function connect() {
   // Bail if already connected
@@ -16,14 +15,19 @@ export async function connect() {
   }
 }
 
-export async function getUser(context: GetServerSidePropsContext): Promise<UserCSR> | null {
+export function createFormObject(form) {
+  const data = new FormData(form)
+  return Object.fromEntries(data.entries())
+}
+
+export async function getUser(context) {
   // Bail if no session
   const { user } = context.req.session
   if (!user) return null
 
   // Fetch data if session available
   await connect()
-  const userData: UserSSR = await User.findById(user.id)
+  const userData = await User.findById(user.id)
   const obj = JSON.parse(JSON.stringify(userData))
   return {
     email: obj.email,
@@ -31,7 +35,7 @@ export async function getUser(context: GetServerSidePropsContext): Promise<UserC
   }
 }
 
-export function props(obj: any) {
+export function props(obj) {
   return {
     props: {
       ...obj,
@@ -39,7 +43,7 @@ export function props(obj: any) {
   }
 }
 
-export function redirect(destination: string, permanent = false) {
+export function redirect(destination = '/', permanent = false) {
   return {
     redirect: {
       destination,
@@ -53,22 +57,10 @@ const withSessionOptions = {
   password: process.env.COOKIE_PASSWORD,
 }
 
-export function withSessionRoute(handler: NextApiHandler) {
+export function withSessionRoute(handler) {
   return withIronSessionApiRoute(handler, withSessionOptions)
 }
 
-export function withSessionSsr<P extends { [key: string]: unknown } = { [key: string]: unknown }>(
-  handler: (
-    context: GetServerSidePropsContext
-  ) => GetServerSidePropsResult<P> | Promise<GetServerSidePropsResult<P>>
-) {
+export function withSessionSsr(handler) {
   return withIronSessionSsr(handler, withSessionOptions)
-}
-
-declare module 'iron-session' {
-  interface IronSessionData {
-    user?: {
-      id: string
-    }
-  }
 }

@@ -1,7 +1,7 @@
-import mongoose, { Schema } from 'mongoose'
+import mongoose from 'mongoose'
 import crypto from 'crypto'
 
-const UserSchema = new Schema({
+const UserSchema = new mongoose.Schema({
   email: {
     type: String,
     required: true,
@@ -25,4 +25,4 @@ const UserSchema = new Schema({
   },
 })
 
-export default mongoose.models.User || mongoose.model<UserSSR>('User', UserSchema)
+export default mongoose.models?.User || mongoose.model('User', UserSchema)
