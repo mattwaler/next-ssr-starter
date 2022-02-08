@@ -11,9 +11,7 @@ export default function Login() {
     event.preventDefault()
     const form = createFormObject(event.target)
     const { data } = await axios.post('/api/auth', form)
-    return data.success
-      ? router.push('/')
-      : toast.error(data.message)
+    return data.success ? router.push('/') : toast.error(data.message)
   }
 
   return (
@@ -26,7 +24,10 @@ export default function Login() {
         <p>Password:</p>
         <input className="w-96 rounded" name="password" type="password" />
         <div className="mt-4">
-          <button className="px-4 py-2 bg-gray-900 text-white font-bold" type="submit">
+          <button
+            className="px-4 py-2 bg-gray-900 text-white font-bold"
+            type="submit"
+          >
             Login
           </button>
         </div>

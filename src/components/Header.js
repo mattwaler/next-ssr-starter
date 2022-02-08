@@ -8,11 +8,13 @@ export default function Nav() {
   const router = useRouter()
   const user = useUser()
 
-  const isActive = (path)  => path === router.pathname
+  const isActive = (path) => path === router.pathname
 
   const NavLink = ({ text = 'Text', link = '/' }) => (
     <Link href={link}>
-      <a className={clsx('font-medium', isActive(link) && 'text-yellow-400')}>{text}</a>
+      <a className={clsx('font-medium', isActive(link) && 'text-yellow-400')}>
+        {text}
+      </a>
     </Link>
   )
 
@@ -30,13 +32,20 @@ export default function Nav() {
     <header className="bg-gray-900 text-white py-4">
       <div className="container flex items-center justify-between">
         <Link href="/">
-          <a className={clsx('flex items-center gap-2', isActive('/') && 'text-yellow-400')}>
+          <a
+            className={clsx(
+              'flex items-center gap-2',
+              isActive('/') && 'text-yellow-400'
+            )}
+          >
             <LightningBoltIcon className="w-6 h-6" />
             <span className="font-bold">Next SSR Starter</span>
           </a>
         </Link>
         <nav className="flex items-center gap-4">
-          {links.map(link => <NavLink key={link.text} {...link} />)}
+          {links.map((link) => (
+            <NavLink key={link.text} {...link} />
+          ))}
         </nav>
       </div>
     </header>

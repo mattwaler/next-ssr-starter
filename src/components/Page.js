@@ -8,10 +8,12 @@ import { createContext, useContext } from 'react'
 const UserContext = createContext(null)
 export const useUser = () => useContext(UserContext)
 
-export default function Page(props) {
-  const { title, children, user } = props
+export default function Page({
+  children,
+  title = 'Default Title',
+  user = null,
+}) {
   const devMode = process.env.NODE_ENV === 'development'
-
   return (
     <UserContext.Provider value={user}>
       <Head>

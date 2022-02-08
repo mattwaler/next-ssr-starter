@@ -26,7 +26,10 @@ export default function Create() {
         <p>Password:</p>
         <input className="w-96 rounded" name="password" type="password" />
         <div className="mt-4">
-          <button className="px-4 py-2 bg-gray-900 text-white font-bold" type="submit">
+          <button
+            className="px-4 py-2 bg-gray-900 text-white font-bold"
+            type="submit"
+          >
             Create Account
           </button>
         </div>
