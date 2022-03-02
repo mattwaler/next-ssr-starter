@@ -1,15 +1,14 @@
 import axios from 'axios'
-import React from 'react'
 import { toast } from 'react-hot-toast'
-import { useUser } from './Page'
+import { useUser } from 'contexts/UserContext'
 import { createFormObject } from 'lib/helpers'
 
 export default function Update() {
   const user = useUser()
 
-  async function update(event) {
+  async function update(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault()
-    const form = createFormObject(event.target)
+    const form = createFormObject(event.currentTarget)
     const { data } = await axios.patch('/api/user', form)
     return data.success
       ? toast.success('Details updated successfully.')

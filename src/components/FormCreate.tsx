@@ -1,5 +1,4 @@
 import axios from 'axios'
-import React from 'react'
 import { toast } from 'react-hot-toast'
 import { useRouter } from 'next/router'
 import { createFormObject } from 'lib/helpers'
@@ -7,9 +6,9 @@ import { createFormObject } from 'lib/helpers'
 export default function Create() {
   const router = useRouter()
 
-  async function create(event) {
+  async function create(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault()
-    const form = createFormObject(event.target)
+    const form = createFormObject(event.currentTarget)
     const { data } = await axios.post('/api/user', form)
     return data.success
       ? router.push('/login')

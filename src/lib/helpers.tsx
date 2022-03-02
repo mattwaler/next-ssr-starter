@@ -1,6 +1,11 @@
 import mongoose from 'mongoose'
-import User from 'models/User'
+import User, { UserCSR, UserSSR } from 'models/User'
 import { withIronSessionApiRoute, withIronSessionSsr } from 'iron-session/next'
+import {
+  GetServerSidePropsContext,
+  GetServerSidePropsResult,
+  NextApiHandler,
+} from "next"
 
 export async function connect() {
   // Bail if already connected
@@ -15,7 +20,7 @@ export async function connect() {
   }
 }
 
-export function createFormObject(form) {
+export function createFormObject(form: HTMLFormElement) {
   const data = new FormData(form)
   return Object.fromEntries(data.entries())
 }
@@ -27,12 +32,12 @@ export async function getUser(context) {
 
   // Fetch data if session available
   await connect()
-  const userData = await User.findById(user.id)
-  const obj = JSON.parse(JSON.stringify(userData))
-  return {
-    email: obj.email,
-    name: obj?.name ?? null,
+  const userServer: UserSSR = await User.findById(user.id)
+  const userClient: UserCSR = {
+    email: userServer.email,
+    ...(userServer?.name && { name: userServer?.name }),
   }
+  return userClient
 }
 
 export function props(obj) {
@@ -57,10 +62,16 @@ const withSessionOptions = {
   password: process.env.COOKIE_PASSWORD,
 }
 
-export function withSessionRoute(handler) {
+export function withSessionRoute(handler: NextApiHandler) {
   return withIronSessionApiRoute(handler, withSessionOptions)
 }
 
-export function withSessionSsr(handler) {
+export function withSessionSsr<
+  P extends { [key: string]: unknown } = { [key: string]: unknown },
+>(
+  handler: (
+    context: GetServerSidePropsContext,
+  ) => GetServerSidePropsResult<P> | Promise<GetServerSidePropsResult<P>>,
+) {
   return withIronSessionSsr(handler, withSessionOptions)
 }

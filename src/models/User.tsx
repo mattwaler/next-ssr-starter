@@ -1,7 +1,27 @@
 import mongoose from 'mongoose'
 import crypto from 'crypto'
 
-const UserSchema = new mongoose.Schema({
+export interface UserCSR {
+  email: string
+  name?: string
+}
+
+export interface UserSSR {
+  email: string
+  name?: string
+  password: string
+  hash: string
+}
+
+declare module "iron-session" {
+  interface IronSessionData {
+    user?: {
+      id: string
+    }
+  }
+}
+
+const UserSchema = new mongoose.Schema<UserSSR>({
   email: {
     type: String,
     required: true,

@@ -2,13 +2,13 @@ import clsx from 'clsx'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { LightningBoltIcon } from '@heroicons/react/solid'
-import { useUser } from 'components/Page'
+import { useUser } from 'contexts/UserContext'
 
-export default function Nav() {
+export default function Header() {
   const router = useRouter()
   const user = useUser()
 
-  const isActive = (path) => path === router.pathname
+  const isActive = (path: string) => path === router.pathname
 
   const NavLink = ({ text = 'Text', link = '/' }) => (
     <Link href={link}>

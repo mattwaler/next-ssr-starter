@@ -1,7 +1,10 @@
 // tailwind.config.js
 module.exports = {
   content: ['./src/**/*'],
-  plugins: [require('@tailwindcss/forms'), require('tailwindcss-debug-screens')],
+  plugins: [
+    require('@tailwindcss/forms'),
+    require('tailwindcss-debug-screens'),
+  ],
   theme: {
     container: {
       center: true,
