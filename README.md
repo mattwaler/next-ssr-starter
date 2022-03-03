@@ -17,6 +17,7 @@ This template uses the following tools:
 - [Mongoose](https://mongoosejs.com/)
 - [Next.js](https://nextjs.org/)
 - [TailwindCSS](https://tailwindcss.com/)
+- [TypeScript](https://www.typescriptlang.org/)
 
 ## 🛠 Getting Started
 
