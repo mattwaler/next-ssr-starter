@@ -74,9 +74,9 @@ export default withSessionRoute(async function route(req, res) {
     case 'GET':
       return getUser()
     case 'POST':
-      return logout()
-    case 'DELETE':
       return login()
+    case 'DELETE':
+      return logout()
     default:
       return res.status(200).json({ success: false })
   }
