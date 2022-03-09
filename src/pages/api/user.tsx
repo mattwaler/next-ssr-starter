@@ -1,9 +1,29 @@
 import bcrypt from 'bcrypt'
-import User from 'models/User'
+import User, { UserCSR, UserSSR } from 'models/User'
 import isEmail from 'validator/lib/isEmail'
-import { connect, withSessionRoute } from 'lib/helpers'
+import { connect, withSessionRoute, getUser } from 'lib/helpers'
 
 export default withSessionRoute(async function route(req, res) {
+  // Check
+  if (req.method == 'GET') {
+    const { user } = req.session
+    if (!user) {
+      return res.status(200).json({ success: false })
+    }
+    try {
+      await connect()
+      const userServer: UserSSR = await User.findById(user.id)
+      const userClient: UserCSR = {
+        email: userServer.email,
+        ...(userServer?.name && { name: userServer?.name }),
+      }
+      return res.status(200).json({ success: true, user: userClient })
+    } catch (err) {
+      console.error(err)
+      return res.status(200).json({ success: false })
+    }
+  }
+
   // CREATE
   if (req.method == 'POST') {
     try {

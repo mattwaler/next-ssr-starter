@@ -9,7 +9,7 @@ export const getServerSideProps = h.withSessionSsr(async (context) => {
 
 export default function Auth() {
   return (
-    <Page title="Login" user={null}>
+    <Page title="Login">
       <div className="container py-8">
         <h1 className="col-span-2 font-bold text-3xl">Login</h1>
         <div className="mt-4">

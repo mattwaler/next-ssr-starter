@@ -1,11 +1,11 @@
 import mongoose from 'mongoose'
-import User, { UserCSR, UserSSR } from 'models/User'
 import { withIronSessionApiRoute, withIronSessionSsr } from 'iron-session/next'
 import {
   GetServerSidePropsContext,
   GetServerSidePropsResult,
   NextApiHandler,
 } from "next"
+import axios from 'axios'
 
 export async function connect() {
   // Bail if already connected
@@ -25,19 +25,9 @@ export function createFormObject(form: HTMLFormElement) {
   return Object.fromEntries(data.entries())
 }
 
-export async function getUser(context) {
-  // Bail if no session
-  const { user } = context.req.session
-  if (!user) return null
-
-  // Fetch data if session available
-  await connect()
-  const userServer: UserSSR = await User.findById(user.id)
-  const userClient: UserCSR = {
-    email: userServer.email,
-    ...(userServer?.name && { name: userServer?.name }),
-  }
-  return userClient
+export async function getUser() {
+  const { data } = await axios.get('/api/user')
+  return data
 }
 
 export function props(obj) {

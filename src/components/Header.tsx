@@ -2,30 +2,38 @@ import clsx from 'clsx'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { LightningBoltIcon } from '@heroicons/react/solid'
-import { useUser } from 'contexts/UserContext'
+import { useQuery, useQueryClient } from 'react-query'
+import { getUser } from 'lib/helpers'
+import axios from 'axios'
 
 export default function Header() {
   const router = useRouter()
-  const user = useUser()
+  const client = useQueryClient()
+  const query = useQuery('user', getUser)
+  const user = query?.data?.user
 
-  const isActive = (path: string) => path === router.pathname
+  function isActive(text) {
+    const slug = `/${text.toLowerCase()}`
+    return slug === router.pathname
+  }
 
-  const NavLink = ({ text = 'Text', link = '/' }) => (
-    <Link href={link}>
-      <a className={clsx('font-medium', isActive(link) && 'text-yellow-400')}>
-        {text}
-      </a>
-    </Link>
-  )
+  async function logout() {
+    const { data } = await axios.delete('/api/auth')
+    console.log(data.success)
+    if (data.success) {
+      client.invalidateQueries('user')
+      router.push('/')
+    }
+  }
 
   const links = user
     ? [
-        { text: 'Account', link: '/account' },
-        { text: 'Logout', link: '/api/auth' },
+        { text: 'Account', action: () => router.push('/account') },
+        { text: 'Logout', action: () => logout() },
       ]
     : [
-        { text: 'Login', link: '/login' },
-        { text: 'Create', link: '/create' },
+        { text: 'Login', action: () => router.push('/login') },
+        { text: 'Create', action: () => router.push('/create') },
       ]
 
   return (
@@ -35,7 +43,7 @@ export default function Header() {
           <a
             className={clsx(
               'flex items-center gap-2',
-              isActive('/') && 'text-yellow-400'
+              isActive('') && 'text-yellow-400'
             )}
           >
             <LightningBoltIcon className="w-6 h-6" />
@@ -44,7 +52,13 @@ export default function Header() {
         </Link>
         <nav className="flex items-center gap-4">
           {links.map((link) => (
-            <NavLink key={link.text} {...link} />
+            <button
+              key={link.text}
+              onClick={link.action}
+              className={clsx('font-medium', isActive(link.text) && 'text-yellow-400')}
+            >
+              {link.text}
+            </button>
           ))}
         </nav>
       </div>

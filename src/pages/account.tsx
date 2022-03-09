@@ -1,15 +1,15 @@
 import Page from 'components/Page'
-import * as h from 'lib/helpers'
 import FormUpdate from 'components/FormUpdate'
+import * as h from 'lib/helpers'
 
 export const getServerSideProps = h.withSessionSsr(async (context) => {
-  const user = await h.getUser(context)
-  return user ? h.props({ user }) : h.redirect('/')
+  const { user } = context.req.session
+  return user ? h.props({}) : h.redirect('/')
 })
 
-export default function Account({ user }) {
+export default function Account() {
   return (
-    <Page title="Account" user={user}>
+    <Page title="Account">
       <div className="container py-8">
         <h1 className="font-bold text-3xl">Account</h1>
         <p>This page is only accessible to logged-in users.</p>
