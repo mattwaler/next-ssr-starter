@@ -1,11 +1,11 @@
 import bcrypt from 'bcrypt'
-import User, { UserCSR, UserSSR } from 'models/User'
+import User from 'models/User'
 import isEmail from 'validator/lib/isEmail'
 import { connect, withSessionRoute } from 'lib/server'
 
 export default withSessionRoute(async function route(req, res) {
-  // CREATE
-  if (req.method == 'POST') {
+  // Create User
+  async function createUser() {
     try {
       await connect()
       const hashedPassword = await bcrypt.hash(
@@ -22,8 +22,8 @@ export default withSessionRoute(async function route(req, res) {
     }
   }
 
-  // UPDATE
-  if (req.method === 'PATCH') {
+  // Update User
+  async function updateUser() {
     try {
       const user = req.session.user
       if (!user) return
@@ -48,6 +48,13 @@ export default withSessionRoute(async function route(req, res) {
     }
   }
 
-  // ANY OTHER METHOD
-  return res.status(200).json({ success: false, message: 'Invalid method.' })
+  // Handle Request
+  switch (req.method) {
+    case 'POST':
+      return createUser()
+    case 'PATCH':
+      return updateUser()
+    default:
+      return res.status(200).json({ success: false })
+  }
 })

@@ -16,6 +16,7 @@ This template uses the following tools:
 - [MongoDB](https://www.mongodb.com/)
 - [Mongoose](https://mongoosejs.com/)
 - [Next.js](https://nextjs.org/)
+- [React Query](https://react-query.tanstack.com/)
 - [TailwindCSS](https://tailwindcss.com/)
 - [TypeScript](https://www.typescriptlang.org/)
 

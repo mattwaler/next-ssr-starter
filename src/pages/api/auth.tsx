@@ -3,28 +3,8 @@ import User, { UserCSR, UserSSR } from 'models/User'
 import { connect, withSessionRoute } from 'lib/server'
 
 export default withSessionRoute(async function route(req, res) {
-    // CHECK IF LOGGED IN
-    if (req.method == 'GET') {
-      const { user } = req.session
-      if (!user) {
-        return res.status(200).json({ success: false })
-      }
-      try {
-        await connect()
-        const userServer: UserSSR = await User.findById(user.id)
-        const userClient: UserCSR = {
-          email: userServer.email,
-          ...(userServer?.name && { name: userServer?.name }),
-        }
-        return res.status(200).json({ success: true, user: userClient })
-      } catch (err) {
-        console.error(err)
-        return res.status(200).json({ success: false })
-      }
-    }
-
-  // LOGIN
-  if (req.method == 'POST') {
+  // Login
+  async function login() {
     // Bail if incorrect post body
     if (!req.body.email || !req.body.password) {
       return res.status(200).json({
@@ -58,8 +38,8 @@ export default withSessionRoute(async function route(req, res) {
     }
   }
 
-  // LOGOUT
-  if (req.method === 'DELETE') {
+  // Logout
+  async function logout() {
     try {
       res.setHeader('cache-control', 'no-store, max-age=0')
       await req.session.destroy()
@@ -69,6 +49,35 @@ export default withSessionRoute(async function route(req, res) {
     }
   }
 
-  // ANY OTHER METHOD
-  return res.status(200).json({ success: false })
+  // Check Login
+  async function getUser() {
+    const { user } = req.session
+    if (!user) {
+      return res.status(200).json({ success: false })
+    }
+    try {
+      await connect()
+      const userServer: UserSSR = await User.findById(user.id)
+      const userClient: UserCSR = {
+        email: userServer.email,
+        ...(userServer?.name && { name: userServer?.name }),
+      }
+      return res.status(200).json({ success: true, user: userClient })
+    } catch (err) {
+      console.error(err)
+      return res.status(200).json({ success: false })
+    }
+  }
+
+  // Handle Request
+  switch (req.method) {
+    case 'GET':
+      return getUser()
+    case 'POST':
+      return logout()
+    case 'DELETE':
+      return login()
+    default:
+      return res.status(200).json({ success: false })
+  }
 })
