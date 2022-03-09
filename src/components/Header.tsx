@@ -3,12 +3,11 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { LightningBoltIcon } from '@heroicons/react/solid'
 import { useQuery, useQueryClient } from 'react-query'
-import { getUser } from 'lib/helpers'
-import axios from 'axios'
+import { getUser, logout } from 'lib/client'
 
 export default function Header() {
   const router = useRouter()
-  const client = useQueryClient()
+  const queryClient = useQueryClient()
   const query = useQuery('user', getUser)
   const user = query?.data?.user
 
@@ -17,19 +16,10 @@ export default function Header() {
     return slug === router.pathname
   }
 
-  async function logout() {
-    const { data } = await axios.delete('/api/auth')
-    console.log(data.success)
-    if (data.success) {
-      client.invalidateQueries('user')
-      router.push('/')
-    }
-  }
-
   const links = user
     ? [
         { text: 'Account', action: () => router.push('/account') },
-        { text: 'Logout', action: () => logout() },
+        { text: 'Logout', action: () => logout(queryClient, router) },
       ]
     : [
         { text: 'Login', action: () => router.push('/login') },

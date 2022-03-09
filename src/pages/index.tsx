@@ -1,6 +1,6 @@
 import Page from 'components/Page'
 import { useQuery } from 'react-query'
-import { getUser } from 'lib/helpers'
+import { getUser } from 'lib/client'
 
 export default function Home() {
   const query = useQuery('user', getUser)

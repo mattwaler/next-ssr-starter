@@ -1,10 +1,10 @@
 import FormLogin from 'components/FormLogin'
 import Page from 'components/Page'
-import * as h from 'lib/helpers'
+import * as s from 'lib/server'
 
-export const getServerSideProps = h.withSessionSsr(async (context) => {
+export const getServerSideProps = s.withSessionSsr(async (context) => {
   const { user } = context.req.session
-  return user ? h.redirect('/') : h.props({})
+  return user ? s.redirect('/') : s.props({})
 })
 
 export default function Auth() {

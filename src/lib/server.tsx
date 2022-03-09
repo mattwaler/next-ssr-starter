@@ -5,7 +5,6 @@ import {
   GetServerSidePropsResult,
   NextApiHandler,
 } from "next"
-import axios from 'axios'
 
 export async function connect() {
   // Bail if already connected
@@ -18,16 +17,6 @@ export async function connect() {
   } catch (error) {
     console.log('DB error', error)
   }
-}
-
-export function createFormObject(form: HTMLFormElement) {
-  const data = new FormData(form)
-  return Object.fromEntries(data.entries())
-}
-
-export async function getUser() {
-  const { data } = await axios.get('/api/user')
-  return data
 }
 
 export function props(obj) {

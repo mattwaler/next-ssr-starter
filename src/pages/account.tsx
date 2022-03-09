@@ -1,10 +1,10 @@
 import Page from 'components/Page'
 import FormUpdate from 'components/FormUpdate'
-import * as h from 'lib/helpers'
+import * as s from 'lib/server'
 
-export const getServerSideProps = h.withSessionSsr(async (context) => {
+export const getServerSideProps = s.withSessionSsr(async (context) => {
   const { user } = context.req.session
-  return user ? h.props({}) : h.redirect('/')
+  return user ? s.props({}) : s.redirect('/')
 })
 
 export default function Account() {

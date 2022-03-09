@@ -1,8 +1,28 @@
 import bcrypt from 'bcrypt'
-import User from 'models/User'
-import { connect, withSessionRoute } from 'lib/helpers'
+import User, { UserCSR, UserSSR } from 'models/User'
+import { connect, withSessionRoute } from 'lib/server'
 
 export default withSessionRoute(async function route(req, res) {
+    // CHECK IF LOGGED IN
+    if (req.method == 'GET') {
+      const { user } = req.session
+      if (!user) {
+        return res.status(200).json({ success: false })
+      }
+      try {
+        await connect()
+        const userServer: UserSSR = await User.findById(user.id)
+        const userClient: UserCSR = {
+          email: userServer.email,
+          ...(userServer?.name && { name: userServer?.name }),
+        }
+        return res.status(200).json({ success: true, user: userClient })
+      } catch (err) {
+        console.error(err)
+        return res.status(200).json({ success: false })
+      }
+    }
+
   // LOGIN
   if (req.method == 'POST') {
     // Bail if incorrect post body

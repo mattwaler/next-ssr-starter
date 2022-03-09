@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { toast } from 'react-hot-toast'
 import { useQuery } from 'react-query'
-import { createFormObject, getUser } from 'lib/helpers'
+import { createFormObject, getUser } from 'lib/client'
 
 export default function Update() {
   const query = useQuery('user', getUser)
