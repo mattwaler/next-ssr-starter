@@ -1,11 +1,10 @@
 import axios from 'axios'
 import { toast } from 'react-hot-toast'
-import { useQuery } from 'react-query'
-import { createFormObject, getUser } from 'lib/client'
+import { useUser } from 'contexts/UserContext'
+import { createFormObject } from 'lib/helpers'
 
 export default function Update() {
-  const query = useQuery('user', getUser)
-  const user = query?.data?.user
+  const user = useUser()
 
   async function update(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault()

@@ -1,10 +1,10 @@
 import bcrypt from 'bcrypt'
 import User from 'models/User'
 import isEmail from 'validator/lib/isEmail'
-import { connect, withSessionRoute } from 'lib/server'
+import { connect, withSessionRoute } from 'lib/helpers'
 
 export default withSessionRoute(async function route(req, res) {
-  // Create User
+  // CREATE
   async function createUser() {
     try {
       await connect()
@@ -22,7 +22,6 @@ export default withSessionRoute(async function route(req, res) {
     }
   }
 
-  // Update User
   async function updateUser() {
     try {
       const user = req.session.user
@@ -48,13 +47,9 @@ export default withSessionRoute(async function route(req, res) {
     }
   }
 
-  // Handle Request
   switch (req.method) {
-    case 'POST':
-      return createUser()
-    case 'PATCH':
-      return updateUser()
-    default:
-      return res.status(200).json({ success: false })
+    case 'POST': return createUser()
+    case 'PATCH': return updateUser()
+    default: return res.status(200).json({ success: false })
   }
 })

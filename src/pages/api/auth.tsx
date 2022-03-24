@@ -1,9 +1,9 @@
 import bcrypt from 'bcrypt'
-import User, { UserCSR, UserSSR } from 'models/User'
-import { connect, withSessionRoute } from 'lib/server'
+import User from 'models/User'
+import { connect, withSessionRoute } from 'lib/helpers'
 
 export default withSessionRoute(async function route(req, res) {
-  // Login
+  // LOGIN
   async function login() {
     // Bail if incorrect post body
     if (!req.body.email || !req.body.password) {
@@ -38,46 +38,20 @@ export default withSessionRoute(async function route(req, res) {
     }
   }
 
-  // Logout
   async function logout() {
     try {
       res.setHeader('cache-control', 'no-store, max-age=0')
       await req.session.destroy()
-      return res.status(200).json({ success: true })
+      res.status(200).redirect('/')
+      return
     } catch (error) {
       return res.status(200).json({ success: false })
     }
   }
 
-  // Check Login
-  async function getUser() {
-    const { user } = req.session
-    if (!user) {
-      return res.status(200).json({ success: false })
-    }
-    try {
-      await connect()
-      const userServer: UserSSR = await User.findById(user.id)
-      const userClient: UserCSR = {
-        email: userServer.email,
-        ...(userServer?.name && { name: userServer?.name }),
-      }
-      return res.status(200).json({ success: true, user: userClient })
-    } catch (err) {
-      console.error(err)
-      return res.status(200).json({ success: false })
-    }
-  }
-
-  // Handle Request
   switch (req.method) {
-    case 'GET':
-      return getUser()
-    case 'POST':
-      return login()
-    case 'DELETE':
-      return logout()
-    default:
-      return res.status(200).json({ success: false })
+    case 'GET': return logout()
+    case 'POST': return login()
+    default: return res.status(200).json({ success: false })
   }
 })

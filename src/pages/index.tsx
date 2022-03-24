@@ -1,15 +1,14 @@
 import Page from 'components/Page'
-import { useQuery } from 'react-query'
-import { getUser } from 'lib/client'
+import * as h from 'lib/helpers'
 
-export default function Home() {
-  const query = useQuery('user', getUser)
-  const user = query?.data?.user
+export const getServerSideProps = h.withSessionSsr(async (context) => {
+  const user = await h.getUser(context)
+  return user ? h.props({ user }) : h.props({})
+})
 
-  if (query.isLoading) return null
-
+export default function Home({ user }) {
   return (
-    <Page title="Home">
+    <Page title="Home" user={user ?? null}>
       <div className="container py-8">
         <h1 className="font-bold text-3xl">Home</h1>
         Hello {user?.name ?? user?.email ?? 'guest'}!

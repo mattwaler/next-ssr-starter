@@ -2,28 +2,30 @@ import clsx from 'clsx'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { LightningBoltIcon } from '@heroicons/react/solid'
-import { useQuery, useQueryClient } from 'react-query'
-import { getUser, logout } from 'lib/client'
+import { useUser } from 'contexts/UserContext'
 
 export default function Header() {
   const router = useRouter()
-  const queryClient = useQueryClient()
-  const query = useQuery('user', getUser)
-  const user = query?.data?.user
+  const user = useUser()
 
-  function isActive(text) {
-    const slug = `/${text.toLowerCase()}`
-    return slug === router.pathname
-  }
+  const isActive = (path: string) => path === router.pathname
+
+  const NavLink = ({ text = 'Text', link = '/' }) => (
+    <Link href={link}>
+      <a className={clsx('font-medium', isActive(link) && 'text-yellow-400')}>
+        {text}
+      </a>
+    </Link>
+  )
 
   const links = user
     ? [
-        { text: 'Account', action: () => router.push('/account') },
-        { text: 'Logout', action: () => logout(queryClient, router) },
+        { text: 'Account', link: '/account' },
+        { text: 'Logout', link: '/api/auth' },
       ]
     : [
-        { text: 'Login', action: () => router.push('/login') },
-        { text: 'Create', action: () => router.push('/create') },
+        { text: 'Login', link: '/login' },
+        { text: 'Create', link: '/create' },
       ]
 
   return (
@@ -33,7 +35,7 @@ export default function Header() {
           <a
             className={clsx(
               'flex items-center gap-2',
-              isActive('') && 'text-yellow-400'
+              isActive('/') && 'text-yellow-400'
             )}
           >
             <LightningBoltIcon className="w-6 h-6" />
@@ -42,13 +44,7 @@ export default function Header() {
         </Link>
         <nav className="flex items-center gap-4">
           {links.map((link) => (
-            <button
-              key={link.text}
-              onClick={link.action}
-              className={clsx('font-medium', isActive(link.text) && 'text-yellow-400')}
-            >
-              {link.text}
-            </button>
+            <NavLink key={link.text} {...link} />
           ))}
         </nav>
       </div>
