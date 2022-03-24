@@ -1,11 +1,11 @@
 import Page from 'components/Page'
-import * as h from 'lib/helpers'
+import { withSessionSsr, getUser, props, redirect } from 'lib/server'
 import FormUpdate from 'components/FormUpdate'
 import { UserCSR } from 'models/User'
 
-export const getServerSideProps = h.withSessionSsr(async (context) => {
-  const user = await h.getUser(context)
-  return user ? h.props({ user }) : h.redirect('/')
+export const getServerSideProps = withSessionSsr(async (context) => {
+  const user = await getUser(context)
+  return user ? props({ user }) : redirect('/')
 })
 
 export default function Account({ user }: { user: UserCSR }) {

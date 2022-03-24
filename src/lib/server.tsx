@@ -20,11 +20,6 @@ export async function connect() {
   }
 }
 
-export function createFormObject(form: HTMLFormElement) {
-  const data = new FormData(form)
-  return Object.fromEntries(data.entries())
-}
-
 export async function getUser(context) {
   // Bail if no session
   const { user } = context.req.session

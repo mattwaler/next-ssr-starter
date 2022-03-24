@@ -1,7 +1,7 @@
 import bcrypt from 'bcrypt'
 import User from 'models/User'
 import isEmail from 'validator/lib/isEmail'
-import { connect, withSessionRoute } from 'lib/helpers'
+import { connect, withSessionRoute } from 'lib/server'
 
 export default withSessionRoute(async function route(req, res) {
   // CREATE

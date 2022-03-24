@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { useRouter } from 'next/router'
 import { toast } from 'react-hot-toast'
-import { createFormObject } from 'lib/helpers'
+import { createFormObject } from 'lib/client'
 
 export default function Login() {
   const router = useRouter()

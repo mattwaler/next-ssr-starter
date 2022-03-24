@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { toast } from 'react-hot-toast'
 import useUserContext from 'contexts/UserContext'
-import { createFormObject } from 'lib/helpers'
+import { createFormObject } from 'lib/client'
 
 export default function Update() {
   const user = useUserContext()

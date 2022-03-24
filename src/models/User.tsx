@@ -1,4 +1,4 @@
-import mongoose from 'mongoose'
+import { Schema, models, model } from 'mongoose'
 
 export type UserCSR = null | {
   email: string
@@ -19,7 +19,7 @@ declare module "iron-session" {
   }
 }
 
-const UserSchema = new mongoose.Schema<UserSSR>({
+const UserSchema = new Schema<UserSSR>({
   email: {
     type: String,
     required: true,
@@ -36,4 +36,4 @@ const UserSchema = new mongoose.Schema<UserSSR>({
   },
 })
 
-export default mongoose.models?.User || mongoose.model('User', UserSchema)
+export default models?.User || model('User', UserSchema)
