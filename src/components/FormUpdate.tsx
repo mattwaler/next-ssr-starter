@@ -1,10 +1,10 @@
 import axios from 'axios'
 import { toast } from 'react-hot-toast'
-import { useUser } from 'contexts/UserContext'
+import useUserContext from 'contexts/UserContext'
 import { createFormObject } from 'lib/helpers'
 
 export default function Update() {
-  const user = useUser()
+  const user = useUserContext()
 
   async function update(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault()

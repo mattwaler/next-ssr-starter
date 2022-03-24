@@ -9,7 +9,7 @@ import { UserCSR } from 'models/User'
 interface Props {
   children: React.ReactNode
   title: string
-  user: UserCSR | null
+  user: UserCSR
 }
 
 export default function Page(props: Props) {

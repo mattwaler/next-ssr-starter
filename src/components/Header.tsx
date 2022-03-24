@@ -2,11 +2,11 @@ import clsx from 'clsx'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { LightningBoltIcon } from '@heroicons/react/solid'
-import { useUser } from 'contexts/UserContext'
+import useUserContext from 'contexts/UserContext'
 
 export default function Header() {
   const router = useRouter()
-  const user = useUser()
+  const user = useUserContext()
 
   const isActive = (path: string) => path === router.pathname
 

@@ -1,7 +1,6 @@
 import mongoose from 'mongoose'
-import crypto from 'crypto'
 
-export interface UserCSR {
+export type UserCSR = null | {
   email: string
   name?: string
 }
@@ -10,7 +9,6 @@ export interface UserSSR {
   email: string
   name?: string
   password: string
-  hash: string
 }
 
 declare module "iron-session" {
@@ -35,13 +33,6 @@ const UserSchema = new mongoose.Schema<UserSSR>({
   password: {
     type: String,
     required: true,
-  },
-  hash: {
-    type: String,
-    unique: true,
-    default: function () {
-      return crypto.randomBytes(20).toString('hex')
-    },
   },
 })
 
