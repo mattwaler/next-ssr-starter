@@ -5,7 +5,6 @@ A starter project for using Next.js utilizing TailwindCSS and session-based SSR 
 ## ⭐️ Requirements
 
 - [MongoDB](https://www.mongodb.com/)
-- [Node](https://nodejs.org/en/)
 - [NVM](https://github.com/nvm-sh/nvm)
 
 ## 🧰 Tools
