@@ -29,7 +29,7 @@ export default function Header() {
       ]
 
   return (
-    <header className="bg-gray-900 text-white py-4">
+    <header className="bg-gray-900 py-4 text-white">
       <div className="container flex items-center justify-between">
         <Link href="/">
           <a
@@ -38,7 +38,7 @@ export default function Header() {
               isActive('/') && 'text-yellow-400'
             )}
           >
-            <LightningBoltIcon className="w-6 h-6" />
+            <LightningBoltIcon className="h-6 w-6" />
             <span className="font-bold">Next SSR Starter</span>
           </a>
         </Link>

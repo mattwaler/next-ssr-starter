@@ -12,7 +12,7 @@ export default function Account({ user }: { user: UserCSR }) {
   return (
     <Page title="Account" user={user}>
       <div className="container py-8">
-        <h1 className="font-bold text-3xl">Account</h1>
+        <h1 className="text-3xl font-bold">Account</h1>
         <p>This page is only accessible to logged-in users.</p>
         <div className="mt-8">
           <FormUpdate />

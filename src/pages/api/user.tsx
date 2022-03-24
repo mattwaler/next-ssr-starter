@@ -48,8 +48,11 @@ export default withSessionRoute(async function route(req, res) {
   }
 
   switch (req.method) {
-    case 'POST': return createUser()
-    case 'PATCH': return updateUser()
-    default: return res.status(200).json({ success: false })
+    case 'POST':
+      return createUser()
+    case 'PATCH':
+      return updateUser()
+    default:
+      return res.status(200).json({ success: false })
   }
 })

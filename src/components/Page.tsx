@@ -23,7 +23,7 @@ export default function Page(props: Props) {
       <UserContext.Provider value={user}>
         <div
           className={clsx(
-            'antialiased text-gray-900 min-h-screen flex flex-col',
+            'flex min-h-screen flex-col text-gray-900 antialiased',
             devMode && 'debug-screens'
           )}
         >

@@ -26,7 +26,7 @@ export default function Update() {
           defaultValue={user?.email}
         />
       </label>
-      <label className="block mt-2">
+      <label className="mt-2 block">
         <p>Name:</p>
         <input
           className="w-96 rounded"
@@ -36,7 +36,7 @@ export default function Update() {
         />
         <div className="mt-4">
           <button
-            className="px-4 py-2 bg-gray-900 text-white font-bold"
+            className="bg-gray-900 px-4 py-2 font-bold text-white"
             type="submit"
           >
             Update

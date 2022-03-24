@@ -11,8 +11,8 @@ export default function Home({ user }: { user: UserCSR }) {
   return (
     <Page title="Home" user={user}>
       <div className="container py-8">
-        <h1 className="font-bold text-3xl">Home</h1>
-        Hello { user?.name ?? user?.email ?? 'guest'}!
+        <h1 className="text-3xl font-bold">Home</h1>
+        Hello {user?.name ?? user?.email ?? 'guest'}!
       </div>
     </Page>
   )

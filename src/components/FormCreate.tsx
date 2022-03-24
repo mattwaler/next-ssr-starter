@@ -21,12 +21,12 @@ export default function Create() {
         <p>Email:</p>
         <input className="w-96 rounded" name="email" type="email" />
       </label>
-      <label className="block mt-2">
+      <label className="mt-2 block">
         <p>Password:</p>
         <input className="w-96 rounded" name="password" type="password" />
         <div className="mt-4">
           <button
-            className="px-4 py-2 bg-gray-900 text-white font-bold"
+            className="bg-gray-900 px-4 py-2 font-bold text-white"
             type="submit"
           >
             Create Account

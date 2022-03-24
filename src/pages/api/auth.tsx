@@ -50,8 +50,11 @@ export default withSessionRoute(async function route(req, res) {
   }
 
   switch (req.method) {
-    case 'GET': return logout()
-    case 'POST': return login()
-    default: return res.status(200).json({ success: false })
+    case 'GET':
+      return logout()
+    case 'POST':
+      return login()
+    default:
+      return res.status(200).json({ success: false })
   }
 })

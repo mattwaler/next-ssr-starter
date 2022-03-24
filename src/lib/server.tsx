@@ -5,7 +5,7 @@ import {
   GetServerSidePropsContext,
   GetServerSidePropsResult,
   NextApiHandler,
-} from "next"
+} from 'next'
 
 export async function connect() {
   // Bail if already connected
@@ -62,11 +62,11 @@ export function withSessionRoute(handler: NextApiHandler) {
 }
 
 export function withSessionSsr<
-  P extends { [key: string]: unknown } = { [key: string]: unknown },
+  P extends { [key: string]: unknown } = { [key: string]: unknown }
 >(
   handler: (
-    context: GetServerSidePropsContext,
-  ) => GetServerSidePropsResult<P> | Promise<GetServerSidePropsResult<P>>,
+    context: GetServerSidePropsContext
+  ) => GetServerSidePropsResult<P> | Promise<GetServerSidePropsResult<P>>
 ) {
   return withIronSessionSsr(handler, withSessionOptions)
 }

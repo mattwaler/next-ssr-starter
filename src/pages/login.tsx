@@ -11,7 +11,7 @@ export default function Auth() {
   return (
     <Page title="Login" user={null}>
       <div className="container py-8">
-        <h1 className="col-span-2 font-bold text-3xl">Login</h1>
+        <h1 className="col-span-2 text-3xl font-bold">Login</h1>
         <div className="mt-4">
           <FormLogin />
         </div>
