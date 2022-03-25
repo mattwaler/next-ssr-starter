@@ -3,7 +3,7 @@ declare global {
     interface ProcessEnv {
       COOKIE_NAME: string
       COOKIE_PASSWORD: string
-      DATABASE: string
+      DATABASE_URL: string
       SALT_ROUNDS: string
     }
   }
