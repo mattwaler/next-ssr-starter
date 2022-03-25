@@ -4,7 +4,7 @@ A starter project for using Next.js utilizing TailwindCSS and session-based SSR 
 
 ## ⭐️ Requirements
 
-- [MongoDB](https://www.mongodb.com/)
+- [MySQL](https://www.mysql.com/)
 - [NVM](https://github.com/nvm-sh/nvm)
 
 ## 🧰 Tools
@@ -13,14 +13,14 @@ This template uses the following tools:
 
 - [Iron Session](https://iron-session-example.vercel.app/)
 - [MongoDB](https://www.mongodb.com/)
-- [Mongoose](https://mongoosejs.com/)
 - [Next.js](https://nextjs.org/)
+- [Prisma](https://www.prisma.io/)
 - [TailwindCSS](https://tailwindcss.com/)
 - [TypeScript](https://www.typescriptlang.org/)
 
 ## 🛠 Getting Started
 
-1. Ensure MongoDB is running locally
+1. Ensure MySQL is running locally
 2. Duplicate `.env.example` contents into a `.env` file
 3. Run `nvm use` to switch to the correct Node version
 4. Run `npm i` for that big ol' `node_modules` folder

@@ -1,6 +1,6 @@
 import bcrypt from 'bcrypt'
-import User from 'models/User'
-import { connect, withSessionRoute } from 'lib/server'
+import { withSessionRoute } from 'lib/server'
+import { prisma } from 'lib/server'
 
 export default withSessionRoute(async function route(req, res) {
   // LOGIN
@@ -14,11 +14,10 @@ export default withSessionRoute(async function route(req, res) {
     }
     try {
       const { email, password } = req.body
-      await connect()
-      const user = await User.findOne({ email })
-      const match = await bcrypt.compare(password, user.password)
+      const user = await prisma.user.findUnique({ where: { email } })
+      const match = await bcrypt.compare(password, user?.password)
       if (match) {
-        req.session.user = { id: user._id }
+        req.session.user = { id: user?.id }
         await req.session.save()
         return res.status(200).json({
           success: true,

@@ -1,14 +1,14 @@
 import Page from 'components/Page'
 import { withSessionSsr, getUser, props, redirect } from 'lib/server'
 import FormUpdate from 'components/FormUpdate'
-import { UserCSR } from 'models/User'
+import { User } from '@prisma/client'
 
 export const getServerSideProps = withSessionSsr(async (context) => {
   const user = await getUser(context)
   return user ? props({ user }) : redirect('/')
 })
 
-export default function Account({ user }: { user: UserCSR }) {
+export default function Account({ user }: { user: User }) {
   return (
     <Page title="Account" user={user}>
       <div className="container py-8">

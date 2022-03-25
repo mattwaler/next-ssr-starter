@@ -1,18 +1,18 @@
 import bcrypt from 'bcrypt'
-import User from 'models/User'
 import isEmail from 'validator/lib/isEmail'
-import { connect, withSessionRoute } from 'lib/server'
+import { prisma, withSessionRoute } from 'lib/server'
 
 export default withSessionRoute(async function route(req, res) {
   // CREATE
   async function createUser() {
     try {
-      await connect()
       const hashedPassword = await bcrypt.hash(
         req.body.password,
         parseInt(process.env.SALT_ROUNDS)
       )
-      await User.create({ ...req.body, password: hashedPassword })
+      await prisma.user.create({ data: {
+        ...req.body, password: hashedPassword
+      }})
       return res
         .status(200)
         .json({ success: true, message: 'User created successfully.' })
@@ -34,8 +34,10 @@ export default withSessionRoute(async function route(req, res) {
             .json({ success: false, message: 'Invalid email.' })
         }
       }
-      await connect()
-      await User.findByIdAndUpdate(user.id, req.body, { new: true })
+      await prisma.user.update({
+        where: { id: user.id },
+        data: { ...req.body }
+      })
       return res
         .status(200)
         .json({ success: true, message: 'User updated successfully.' })

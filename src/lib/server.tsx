@@ -1,5 +1,4 @@
-import mongoose from 'mongoose'
-import User, { UserCSR, UserSSR } from 'models/User'
+import { PrismaClient } from '@prisma/client'
 import { withIronSessionApiRoute, withIronSessionSsr } from 'iron-session/next'
 import {
   GetServerSidePropsContext,
@@ -7,18 +6,18 @@ import {
   NextApiHandler,
 } from 'next'
 
-export async function connect() {
-  // Bail if already connected
-  if (mongoose.connections[0].readyState) return
-
-  // Connect if not connected
-  try {
-    await mongoose.connect(process.env.DATABASE)
-    console.log('Connected to database.')
-  } catch (error) {
-    console.log('DB error', error)
-  }
+declare global {
+  var prisma: PrismaClient | undefined
 }
+
+export const prisma =
+  global.prisma ||
+  new PrismaClient({
+    log: ['query'],
+  })
+
+if (process.env.NODE_ENV !== 'production') global.prisma = prisma
+
 
 export async function getUser(context) {
   // Bail if no session
@@ -26,10 +25,9 @@ export async function getUser(context) {
   if (!user) return null
 
   // Fetch data if session available
-  await connect()
-  const userServer: UserSSR = await User.findById(user.id)
-  const userClient: UserCSR = {
-    email: userServer.email,
+  const userServer = await prisma.user.findUnique({ where: { id: user.id } })
+  const userClient = {
+    email: userServer?.email,
     ...(userServer?.name && { name: userServer?.name }),
   }
   return userClient
@@ -49,6 +47,14 @@ export function redirect(destination = '/', permanent = false) {
       destination,
       permanent,
     },
+  }
+}
+
+declare module 'iron-session' {
+  interface IronSessionData {
+    user?: {
+      id: number | undefined
+    }
   }
 }
 

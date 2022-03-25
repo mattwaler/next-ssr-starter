@@ -4,12 +4,12 @@ import Header from 'components/Header'
 import Footer from 'components/Footer'
 import { Toaster } from 'react-hot-toast'
 import { UserContext } from 'contexts/UserContext'
-import { UserCSR } from 'models/User'
+import { User } from '@prisma/client'
 
 interface Props {
   children: React.ReactNode
   title: string
-  user: UserCSR
+  user: User|null
 }
 
 export default function Page(props: Props) {

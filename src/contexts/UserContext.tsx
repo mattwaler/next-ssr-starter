@@ -1,7 +1,7 @@
 import { createContext, useContext } from 'react'
-import { UserCSR } from 'models/User'
+import { User } from '@prisma/client'
 
-export const UserContext = createContext<UserCSR>(null)
+export const UserContext = createContext<User|null>(null)
 
 export default function useUserContext() {
   return useContext(UserContext)

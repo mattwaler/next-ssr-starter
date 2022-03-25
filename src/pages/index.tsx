@@ -1,13 +1,13 @@
 import Page from 'components/Page'
 import { withSessionSsr, getUser, props } from 'lib/server'
-import { UserCSR } from 'models/User'
+import { User } from '@prisma/client'
 
 export const getServerSideProps = withSessionSsr(async (context) => {
   const user = await getUser(context)
   return user ? props({ user }) : props({ user: null })
 })
 
-export default function Home({ user }: { user: UserCSR }) {
+export default function Home({ user }: { user: User }) {
   return (
     <Page title="Home" user={user}>
       <div className="container py-8">
