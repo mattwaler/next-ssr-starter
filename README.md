@@ -24,7 +24,8 @@ This template uses the following tools:
 2. Duplicate `.env.example` contents into a `.env` file
 3. Run `nvm use` to switch to the correct Node version
 4. Run `npm i` for that big ol' `node_modules` folder
-5. Run `npm run dev` and start developing
+5. Run `npx prisma migrate dev` to create and run a sql migration
+6. Run `npm run dev` and start developing
 
 ### 👋🏻 Thank you!
 

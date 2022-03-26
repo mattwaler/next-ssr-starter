@@ -1,15 +1,15 @@
-import clsx from 'clsx'
-import Head from 'next/head'
-import Header from 'components/Header'
-import Footer from 'components/Footer'
-import { Toaster } from 'react-hot-toast'
-import { UserContext } from 'contexts/UserContext'
 import { User } from '@prisma/client'
+import clsx from 'clsx'
+import Footer from 'components/Footer'
+import Header from 'components/Header'
+import { UserContext } from 'contexts/UserContext'
+import Head from 'next/head'
+import { Toaster } from 'react-hot-toast'
 
 interface Props {
   children: React.ReactNode
   title: string
-  user: User|null
+  user: User | null
 }
 
 export default function Page(props: Props) {

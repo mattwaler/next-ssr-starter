@@ -18,7 +18,6 @@ export const prisma =
 
 if (process.env.NODE_ENV !== 'production') global.prisma = prisma
 
-
 export async function getUser(context) {
   // Bail if no session
   const { user } = context.req.session

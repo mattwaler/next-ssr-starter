@@ -1,7 +1,7 @@
-import Page from 'components/Page'
-import { withSessionSsr, getUser, props, redirect } from 'lib/server'
-import FormUpdate from 'components/FormUpdate'
 import { User } from '@prisma/client'
+import FormUpdate from 'components/FormUpdate'
+import Page from 'components/Page'
+import { getUser, props, redirect, withSessionSsr } from 'lib/server'
 
 export const getServerSideProps = withSessionSsr(async (context) => {
   const user = await getUser(context)

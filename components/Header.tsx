@@ -1,8 +1,8 @@
+import { LightningBoltIcon } from '@heroicons/react/solid'
 import clsx from 'clsx'
+import useUserContext from 'contexts/UserContext'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { LightningBoltIcon } from '@heroicons/react/solid'
-import useUserContext from 'contexts/UserContext'
 
 export default function Header() {
   const router = useRouter()

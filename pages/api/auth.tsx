@@ -1,9 +1,7 @@
 import bcrypt from 'bcrypt'
-import { withSessionRoute } from 'lib/server'
-import { prisma } from 'lib/server'
+import { prisma, withSessionRoute } from 'lib/server'
 
 export default withSessionRoute(async function route(req, res) {
-  // LOGIN
   async function login() {
     // Bail if incorrect post body
     if (!req.body.email || !req.body.password) {

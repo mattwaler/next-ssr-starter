@@ -1,18 +1,20 @@
 import bcrypt from 'bcrypt'
-import isEmail from 'validator/lib/isEmail'
 import { prisma, withSessionRoute } from 'lib/server'
+import isEmail from 'validator/lib/isEmail'
 
 export default withSessionRoute(async function route(req, res) {
-  // CREATE
   async function createUser() {
     try {
       const hashedPassword = await bcrypt.hash(
         req.body.password,
         parseInt(process.env.SALT_ROUNDS)
       )
-      await prisma.user.create({ data: {
-        ...req.body, password: hashedPassword
-      }})
+      await prisma.user.create({
+        data: {
+          ...req.body,
+          password: hashedPassword,
+        },
+      })
       return res
         .status(200)
         .json({ success: true, message: 'User created successfully.' })
@@ -36,7 +38,7 @@ export default withSessionRoute(async function route(req, res) {
       }
       await prisma.user.update({
         where: { id: user.id },
-        data: { ...req.body }
+        data: { ...req.body },
       })
       return res
         .status(200)
