@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "baseUrl": ".",
+    "baseUrl": "./src",
     "target": "es6",
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
@@ -17,6 +17,6 @@
     "isolatedModules": true,
     "jsx": "preserve"
   },
-  "include": ["./**/*", "environment.d.ts"],
-  "exclude": [".next", "prisma", "node_modules"]
+  "include": ["src/**/*", "environment.d.ts"],
+  "exclude": ["node_modules"]
 }

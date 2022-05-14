@@ -1,11 +1,6 @@
 // tailwind.config.js
 module.exports = {
-  content: [
-    './components/**/*',
-    './contexts/**/*',
-    './lib/**/*',
-    './pages/**/*',
-  ],
+  content: ['./src/**/*'],
   plugins: [
     require('@tailwindcss/forms'),
     require('tailwindcss-debug-screens'),
@@ -18,14 +13,27 @@ module.exports = {
     debugScreens: {
       position: ['bottom', 'right'],
       style: {
-        backgroundColor: '#facc15',
-        borderRadius: '2px',
+        backgroundColor: '#111',
+        borderRadius: '8px',
         boxShadow: 'none',
-        color: 'black',
+        color: 'white',
         fontSize: '14px',
-        padding: '6px',
+        margin: '16px',
+        padding: '8px',
       },
     },
-    extend: {},
+    extend: {
+      colors: {
+        'tt-blue': '#5086B5',
+      },
+      fontFamily: {
+        noto: '"Noto Sans", sans-serif',
+      },
+    },
+    screens: {
+      sm: '640px',
+      md: '768px',
+      lg: '1024px',
+    },
   },
 }
