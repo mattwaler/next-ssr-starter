@@ -11,10 +11,11 @@ export default function UserCreate() {
     try {
       const form = createFormObject(event.currentTarget)
       const { data } = await axios.post('/api/user/create', form)
-      return data.success ? router.push('/') : new Error(data.message)
+      if (!data.success) throw new Error(data.message)
+      return router.push('/')
     } catch (error) {
-      console.error(error)
-      return toast.error('Something went wrong.')
+      console.error(error.message)
+      return toast.error(error.message)
     }
   }
 

@@ -1,4 +1,4 @@
-import Page, { PageContainer } from 'components/Page'
+import Page from 'components/Page'
 import LoginView from 'lib/user/views/Login'
 import { props, redirect } from 'lib/helpers/shorthands'
 import { withSessionSsr } from 'lib/session'
@@ -11,9 +11,7 @@ export const getServerSideProps = withSessionSsr(async (context) => {
 export default function Login() {
   return (
     <Page title="Login">
-      <PageContainer heading="Login">
-        <LoginView />
-      </PageContainer>
+      <LoginView />
     </Page>
   )
 }

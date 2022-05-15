@@ -15,20 +15,6 @@ const defaultPageContext: PageContextIF = {
 export const PageContext = createContext(defaultPageContext)
 export const usePageContext = () => useContext(PageContext)
 
-interface PageContainerProps {
-  heading: string
-  children?: React.ReactNode
-}
-
-export function PageContainer(props: PageContainerProps) {
-  return (
-    <div className="container grid grid-cols-1 gap-8 py-8">
-      <h1 className="h1">{props.heading}</h1>
-      {props.children}
-    </div>
-  )
-}
-
 interface PageProps {
   children: React.ReactNode
   title: string
@@ -51,7 +37,12 @@ export default function Page(props: PageProps) {
       >
         <Toaster />
         <Header />
-        <main className="flex-1">{children}</main>
+        <main className="flex-1">
+          <div className="container grid grid-cols-1 gap-8 py-8">
+            <h1 className="h1">{title}</h1>
+            {children}
+          </div>
+        </main>
       </div>
     </PageContext.Provider>
   )

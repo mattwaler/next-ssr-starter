@@ -1,4 +1,4 @@
-import Page, { PageContainer } from 'components/Page'
+import Page from 'components/Page'
 import UserDelete from 'lib/user/views/UserDelete'
 import UserUpdate from 'lib/user/views/UserUpdate'
 import { withSessionSsr } from 'lib/session'
@@ -18,10 +18,8 @@ export default function Account(props: Props) {
   const { user } = props
   return (
     <Page title="Account" context={{ user }}>
-      <PageContainer heading="Account">
-        <UserUpdate />
-        <UserDelete />
-      </PageContainer>
+      <UserUpdate />
+      <UserDelete />
     </Page>
   )
 }

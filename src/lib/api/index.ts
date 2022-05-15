@@ -38,8 +38,8 @@ function api(config: ApiRouteConfig) {
       // Unsupported Method
       throw new Error('Unsupported HTTP Method')
     } catch(error) {
-      console.error(error.toString())
-      res.status(200).json({ success: false, message: error.toString() })
+      console.error(error.message)
+      return res.status(200).json({ success: false, message: error.message })
     }
   })
 }
