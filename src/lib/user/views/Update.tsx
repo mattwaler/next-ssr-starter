@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { toast } from 'react-hot-toast'
-import { usePageContext } from 'components/Page'
+import { usePageContext } from 'lib/page'
 import { useRouter } from 'next/router'
 import Card from 'components/Card'
 import createFormObject from 'lib/helpers/createFormObject'

@@ -1,4 +1,4 @@
-import Page from 'components/Page'
+import Page from 'lib/page'
 import Auth from 'lib/user/views/Auth'
 import { props, redirect } from 'lib/helpers/shorthands'
 import { withSessionSsr } from 'lib/session'

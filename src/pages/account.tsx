@@ -1,4 +1,4 @@
-import Page from 'components/Page'
+import Page from 'lib/page'
 import Delete from 'lib/user/views/Delete'
 import Update from 'lib/user/views/Update'
 import { withSessionSsr } from 'lib/session'

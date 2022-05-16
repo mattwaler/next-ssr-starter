@@ -1,7 +1,7 @@
 import { Fragment } from 'react'
 import { Menu as Dropdown, Transition } from '@headlessui/react'
 import { ChevronDownIcon } from '@heroicons/react/solid'
-import { usePageContext } from 'components/Page'
+import { usePageContext } from 'lib/page'
 import { useRouter } from 'next/router'
 import { LogoutIcon, IdentificationIcon } from '@heroicons/react/outline'
 

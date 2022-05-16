@@ -1,15 +1,15 @@
-import Page from 'components/Page'
+import Page from 'lib/page'
 import { props } from 'lib/helpers/shorthands'
 import { withSessionSsr } from 'lib/session'
 import fetchUser from 'lib/user/queries/fetchUser'
 
 export const getServerSideProps = withSessionSsr(async (context) => {
   const user = await fetchUser(context)
-  return user ? props({ user }) : props({})
+  return props({ user })
 })
 
 interface Props {
-  user: UserCSR
+  user: UserCSR | null
 }
 
 export default function Home(props: Props) {
@@ -17,6 +17,7 @@ export default function Home(props: Props) {
 
   return (
     <Page title="Home" context={{ user }}>
+      <p>Welcome to the starter project, {user?.name ?? 'guest' }!</p>
     </Page>
   )
 }

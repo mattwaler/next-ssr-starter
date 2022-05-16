@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import Menu from 'lib/user/views/Menu'
-import { usePageContext } from 'components/Page'
+import { usePageContext } from 'lib/page'
 import { GlobeAltIcon, LoginIcon } from '@heroicons/react/outline'
 
 interface NavItemProps {

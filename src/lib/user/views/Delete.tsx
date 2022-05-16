@@ -5,7 +5,7 @@ import { useRouter } from 'next/router'
 import { Fragment, useRef, useState } from 'react'
 import { toast } from 'react-hot-toast'
 import Card from 'components/Card'
-import { usePageContext } from 'components/Page'
+import { usePageContext } from 'lib/page'
 
 export default function Delete() {
   const { user } = usePageContext()
