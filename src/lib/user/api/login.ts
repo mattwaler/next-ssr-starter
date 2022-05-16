@@ -2,9 +2,8 @@ import bcrypt from 'bcrypt'
 import * as yup from 'yup'
 import User from 'lib/user/model'
 import connect from 'lib/database'
-import { ApiRouteMethod } from 'lib/api'
 
-const login: ApiRouteMethod = async ({ req, res }) => {
+const login: ApiRoute = async ({ req, res }) => {
   try {
     // Validate Request
     const schema = yup.object().shape({

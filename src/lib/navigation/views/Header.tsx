@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import AccountMenu from 'lib/navigation/views/AccountMenu'
+import Menu from 'lib/user/views/Menu'
 import { usePageContext } from 'components/Page'
 import { GlobeAltIcon, LoginIcon } from '@heroicons/react/outline'
 
@@ -32,7 +32,7 @@ export default function Header() {
             Next SSR Starter
           </a>
         </Link>
-        {user && <AccountMenu />}
+        {user && <Menu />}
         {!user && <NavItem text="Login" link="/login" icon={<LoginIcon />} />}
       </div>
     </header>

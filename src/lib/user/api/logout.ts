@@ -1,6 +1,4 @@
-import { ApiRouteMethod } from "lib/api"
-
-const logout: ApiRouteMethod = async ({ req, res, user }) => {
+const logout: ApiRoute = async ({ req, res }) => {
   // Destroy Session
   res.setHeader('cache-control', 'no-store, max-age=0')
   await req.session.destroy()

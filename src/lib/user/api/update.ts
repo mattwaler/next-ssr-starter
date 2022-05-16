@@ -1,9 +1,8 @@
 import * as yup from 'yup'
 import connect from 'lib/database'
 import User from 'lib/user/model'
-import { ApiRouteMethod } from 'lib/api'
 
-const update: ApiRouteMethod = async ({ req, res, user }) => {
+const update: ApiRoute = async ({ req, res, user }) => {
   try {
     // Validate Request
     const schema = yup.object().shape({

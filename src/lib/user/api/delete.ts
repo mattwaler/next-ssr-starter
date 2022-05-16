@@ -1,8 +1,7 @@
 import User from 'lib/user/model'
 import connect from 'lib/database'
-import { ApiRouteMethod } from 'lib/api'
 
-const deleteUser: ApiRouteMethod = async ({ req, res, user }) => {
+const deleteUser: ApiRoute = async ({ req, res, user }) => {
   try {
     // Check for Session
     if (!user) throw new Error('No session found.')

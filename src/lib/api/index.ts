@@ -1,46 +1,49 @@
 import { NextApiRequest, NextApiResponse } from 'next'
-import { withSessionRoute } from 'lib/session'
+import { withSessionRoute as ssr } from 'lib/session'
 
-interface ApiMethodObject {
+interface ApiContext {
   req: NextApiRequest
   res: NextApiResponse
   user: { id: string } | null
 }
 
-export type ApiRouteMethod = (obj: ApiMethodObject) => Promise<void>
+declare global {
+  type ApiRoute = (obj: ApiContext) => Promise<void>
+}
 
-interface ApiRouteConfig {
+interface ApiConfig {
   guarded: boolean
   methods: {
-    DELETE?: ApiRouteMethod
-    GET?: ApiRouteMethod
-    PATCH?: ApiRouteMethod
-    POST?: ApiRouteMethod
+    DELETE?: ApiRoute
+    GET?: ApiRoute
+    PATCH?: ApiRoute
+    POST?: ApiRoute
   }
 }
 
-function api(config: ApiRouteConfig) {
-  return withSessionRoute(async function route(req, res) {
-    try {
-      // Get Session
-      const user = req.session.user ?? null
+function api(config: ApiConfig) {
+  return ssr(async function route(req, res) {
+    // Get Session
+    const user = req.session.user ?? null
 
-      // Guard Route
-      if (config.guarded && !user) throw new Error('No user session found.')
+    // Guard Route
+    if (config.guarded && !user)
+      return res.status(200).json({
+        success: false,
+        message: 'User not logged in.',
+      })
 
-      // Fire Methods
-      for (const method in config.methods) {
-        if (req.method === method) {
-          return config.methods[method]({ req, res, user })
-        }
+    // Fire Methods
+    for (const method in config.methods) {
+      if (req.method === method) {
+        return config.methods[method]({ req, res, user })
       }
-
-      // Unsupported Method
-      throw new Error('Unsupported HTTP Method')
-    } catch(error) {
-      console.error(error.message)
-      return res.status(200).json({ success: false, message: error.message })
     }
+
+    // Return Error for Other Methods
+    return res
+      .status(200)
+      .json({ success: false, message: 'Unsupported HTTP Method.' })
   })
 }
 

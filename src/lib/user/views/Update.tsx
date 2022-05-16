@@ -13,14 +13,17 @@ export default function UserUpdate() {
   const router = useRouter()
 
   async function update(event: React.FormEvent<HTMLFormElement>) {
-    event.preventDefault()
-    const form = createFormObject(event.currentTarget)
-    const { data } = await axios.patch('/api/user/update', form)
-    if (!data.success) {
-      return toast.error('Something went wrong.')
+    try {
+      event.preventDefault()
+      const form = createFormObject(event.currentTarget)
+      const { data } = await axios.patch('/api/user/updateee', form)
+      if (!data.success) throw new Error(data.message)
+      refetchServerProps(router)
+      return toast.success('Profile information updated.')
+    } catch(error) {
+      console.error(error)
+      return toast.error(error.message)
     }
-    refetchServerProps(router)
-    return toast.success('Profile information updated.')
   }
 
   return (

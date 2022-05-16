@@ -3,12 +3,12 @@ import createFormObject from 'lib/helpers/createFormObject'
 import { useRouter } from 'next/router'
 import { toast } from 'react-hot-toast'
 
-export default function UserCreate() {
+export default function Create() {
   const router = useRouter()
 
   async function create(event: React.FormEvent<HTMLFormElement>) {
-    event.preventDefault()
     try {
+      event.preventDefault()
       const form = createFormObject(event.currentTarget)
       const { data } = await axios.post('/api/user/create', form)
       if (!data.success) throw new Error(data.message)

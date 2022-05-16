@@ -7,7 +7,7 @@ import { toast } from 'react-hot-toast'
 import Card from 'components/Card'
 import { usePageContext } from 'components/Page'
 
-export default function UserDelete() {
+export default function Delete() {
   const { user } = usePageContext()
   if (!user) return null
 
@@ -16,12 +16,15 @@ export default function UserDelete() {
   const cancelButtonRef = useRef(null)
 
   async function deleteUser() {
-    const { data } = await axios.delete('/api/user/delete')
-    if (!data.success) {
-      return toast.error('Something went wrong.')
+    try {
+      const { data } = await axios.delete('/api/user/delete')
+      if (!data.success) throw new Error(data.message)
+      router.replace('/')
+      return toast.success('Profile successfully deleted.')
+    } catch(error) {
+      console.error(error)
+      return toast.error(error.message)
     }
-    router.replace('/')
-    return toast.success('Profile successfully deleted.')
   }
 
   return (
